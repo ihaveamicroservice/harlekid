@@ -1,0 +1,175 @@
+:root {
+    --size: 20px;
+    --footer-height: 0;
+}
+
+.button {
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#play {
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+}
+
+#play::before,
+#play::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-left-color: rgba(255, 255, 255, 0.9);
+    transition: 100ms;
+}
+
+#play::before {
+    left: 0;
+    top: 0;
+    height: calc(var(--size) / 2);
+    border-width: calc(var(--size) / 4) calc(var(--size) / 2) calc(var(--size) / 4) calc(var(--size) / 2);
+}
+
+#play::after {
+    left: calc(var(--size) / 2);
+    top: calc(var(--size) / 4);
+    height: 0;
+    border-width: calc(var(--size) / 4) 0 calc(var(--size) / 4) calc(var(--size) / 2);
+}
+
+#play.playing::before {
+    height: var(--size);
+    border-width: 0 0 0 calc(var(--size) / 3);
+}
+
+#play.playing::after {
+    left: calc(var(--size) / 1.5);
+    top: 0;
+    height: var(--size);
+    border-width: 0 0 0 calc(var(--size) / 3);
+}
+
+.close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 70px;
+}
+
+.close-button:active .cancel-icon {
+    opacity: 1;
+}
+
+.cancel-icon {
+    height: 18px;
+    width: 18px;
+    opacity: 0.7;
+}
+
+#footer-buttons {
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+
+    position: fixed;
+    bottom: 0;
+    height: var(--footer-height);
+    width: 100%;
+    z-index: 1;
+    overflow: hidden;
+    align-items: flex-start;
+}
+
+.footer-button-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px 0 5px;
+}
+
+.footer-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 50px;
+    width: 45px;
+}
+
+.footer-item img {
+    width: 24px;
+}
+
+#music-button {
+    font-family: lemonMilk, serif;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0 15px 0 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: glow 2s infinite;
+}
+
+.footer-item-content {
+    transform: skew(23deg);
+    pointer-events: none;
+}
+
+.hidden-footer .footer-button-group {
+    transform: skew(-23deg) translateY(var(--footer-height)) !important;
+}
+
+.hidden-transition .footer-button-group {
+    transition: transform 500ms linear 250ms;
+}
+
+.extend-transition .footer-button-group {
+    transition: transform 250ms linear;
+}
+
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ripple 500ms linear;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+}
+
+@keyframes glow-from-the-inside {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.arrow {
+    margin-top: 15px;
+    transition: transform 250ms linear;
+    animation: glow-from-the-inside 2s infinite;
+}
+
+.extended-footer-buttons .arrow {
+    transform: rotate(180deg);
+}

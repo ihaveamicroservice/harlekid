@@ -1,0 +1,131 @@
+body {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    background: #11111f;
+}
+
+#canvas-gradient {
+    position: absolute;
+    height: 100%;
+    width: 1500px;
+    pointer-events: none;
+    background: linear-gradient(to right, #11111f 5%, transparent 20% 80%, #11111f 95%);
+    display: none;
+}
+
+#smoke-canvas {
+    opacity: 0;
+    transition: opacity 1s;
+    overflow: hidden;
+}
+
+#smoke-canvas.visible {
+    opacity: 1;
+}
+
+#logo img {
+    display: block;
+    visibility: hidden;
+}
+
+#logo-background {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 1;
+    transition: top 250ms ease-in;
+    align-self: center;
+}
+
+.background-color {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#logo {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    transition: all 500ms ease-out 250ms;
+}
+
+#logo::before,
+#logo::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    max-width: 1000px;
+    background: url('../img/logos/harlekid.svg') no-repeat;
+    background-size: cover;
+}
+
+#logo::before {
+    height: 40%;
+}
+
+#logo::after {
+    height: 60%;
+    background-position: 0 100%;
+    top: 40%;
+}
+
+#logo-background.header {
+    top: 0 !important;
+}
+
+#logo-background.header #logo {
+    width: 198.9px;
+    max-width: 198.9px;
+}
+
+#logo.glitch-top:before {
+    animation: glitch-top 50ms infinite step-start;
+}
+
+#logo.glitch-bottom:after {
+    animation: glitch-bottom 50ms infinite step-start;
+}
+
+@media only screen and (max-height: 500px) {
+    #logo-background #logo {
+        width: 198.9px;
+        max-width: 198.9px;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    #canvas-gradient {
+        display: block;
+    }
+}
+
+@keyframes glitch-top {
+    0%, 100% {
+        left: 0;
+    }
+    50% {
+        left: -1%;
+    }
+}
+
+@keyframes glitch-bottom {
+    0%, 100% {
+        left: 0;
+    }
+    50% {
+        left: 1%;
+    }
+}
+
+@font-face {
+    font-family: lemonMilk;
+    src: url(../font/LEMONMILK-Bold.otf);
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harlekid</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/buttons.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+
+<body>
+<div class="background-color" id="logo-background">
+    <div id="logo">
+        <img src="/img/logos/harlekid.svg" alt="harlekid">
+    </div>
+</div>
+<div id="footer-buttons" class="extend-transition"></div>
+<div class="footer background-color" id="select-message">
+    <div class="footer-text">select a song</div>
+    <div class="button close-button">
+        <img class="cancel-icon" src="/img/cancel.svg" alt="cancel">
+    </div>
+</div>
+<div class="footer background-color" id="music-player">
+    <div id="cover-wrapper">
+        <img id="cover" alt="cover">
+        <div class="button" id="play-button">
+            <div id="play" class="playing"></div>
+        </div>
+    </div>
+    <div class="footer-text" id="title"></div>
+    <div class="button close-button">
+        <img class="cancel-icon" src="/img/cancel.svg" alt="cancel">
+    </div>
+    <div id="progress-bar"></div>
+</div>
+<canvas id="smoke-canvas"></canvas>
+<div id="canvas-gradient"></div>
+<script type="module" src="/js/main.js"></script>
+</body>
+
+</html>

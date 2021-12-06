@@ -1,0 +1,60 @@
+.footer {
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#cover-wrapper {
+    position: relative;
+    height: 70px;
+    width: 70px;
+}
+
+#cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+}
+
+.footer-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    font-family: lemonMilk, serif;
+    font-size: 15px;
+}
+
+#play-button {
+    position: absolute;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#music-player,
+#select-message {
+    display: none;
+}
+
+@media only screen and (min-width: 1000px) {
+    #music-player .footer-text {
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    #select-message .footer-text {
+        justify-content: center;
+        padding-left: 70px;
+    }
+}

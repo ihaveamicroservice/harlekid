@@ -1,0 +1,16 @@
+{
+  "name": "harlekid",
+  "version": "1.0.0",
+  "source": "index.html",
+  "scripts": {
+    "start": "rm -rf ./.parcel-cache && parcel",
+    "build": "rm -rf ./dist && parcel build"
+  },
+  "author": "Kevin Duss",
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  },
+  "dependencies": {
+    "three": "^0.134.0"
+  }
+}
