@@ -1,0 +1,85 @@
+#logo-background {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 1;
+  transition: top 250ms ease-in, padding 250ms ease-in;
+  align-self: center;
+  padding: 10px 0 10px 0;
+
+  #logo {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    transition: all 500ms ease-out 250ms;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      max-width: 1000px;
+      background: url('../img/logos/harlekid.svg') no-repeat;
+      background-size: cover;
+    }
+
+    &:before {
+      height: 40%;
+    }
+
+    &:after {
+      height: 60%;
+      background-position: 0 100%;
+      top: 40%;
+    }
+
+    img {
+      display: block;
+      visibility: hidden;
+    }
+
+    &.glitch-top:before {
+       animation: glitch-top 50ms infinite step-start;
+     }
+
+    &.glitch-bottom:after {
+      animation: glitch-bottom 50ms infinite step-start;
+    }
+  }
+
+  &.header {
+    top: 0 !important;
+    padding: 0;
+
+    #logo {
+      width: 198.9px;
+      max-width: 198.9px;
+    }
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  #logo-background #logo {
+    width: 198.9px;
+    max-width: 198.9px;
+  }
+}
+
+@keyframes glitch-top {
+  0%, 100% {
+    left: 0;
+  }
+  50% {
+    left: -1%;
+  }
+}
+
+@keyframes glitch-bottom {
+  0%, 100% {
+    left: 0;
+  }
+  50% {
+    left: 1%;
+  }
+}

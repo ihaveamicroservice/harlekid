@@ -1,6 +1,6 @@
 import {BoxGeometry, Mesh, MeshLambertMaterial, PointLight, Raycaster, TextureLoader, Vector2} from 'three';
-import songs from '../songs.js';
-import {lifecycle, assignAnimationsToLifecycles} from './lifecycle.js';
+import songs from '../components/config/songs';
+import {lifecycle, assignAnimationsToLifecycles} from './lifecycle';
 
 export default class Cube {
     constructor(scene, camera, controls, portal) {

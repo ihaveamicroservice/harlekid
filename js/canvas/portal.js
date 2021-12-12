@@ -1,5 +1,5 @@
 import {Mesh, PlaneBufferGeometry, PointLight} from 'three';
-import {lifecycle, assignAnimationsToLifecycles} from './lifecycle.js';
+import {lifecycle, assignAnimationsToLifecycles} from './lifecycle';
 
 export default class Portal {
     constructor(camera, material) {

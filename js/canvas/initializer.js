@@ -1,6 +1,6 @@
 import {FogExp2, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
-import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.js';
-import Universe from './universe.js';
+import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
+import Universe from './universe';
 
 export function initUniverse(canvas, canvasWidth) {
     const scene = new Scene();

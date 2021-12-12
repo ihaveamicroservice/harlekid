@@ -1,9 +1,10 @@
-import Stats from 'three/examples/jsm/libs/stats.module.js';
-import Logo from './modules/logo.js';
-import Player from './modules/player.js';
-import {initUniverse} from './modules/canvas/initializer.js';
-import {lifecycle} from './modules/canvas/lifecycle.js';
-import Footer from "./modules/footer";
+import Stats from 'three/examples/jsm/libs/stats.module';
+import Header from './components/header';
+import Player from './components/player';
+import {initUniverse} from './canvas/initializer';
+import {lifecycle} from './canvas/lifecycle';
+import Footer from './components/footer';
+import '/css/styles.scss'
 
 const maxCanvasWidth = 1500;
 const canvasWidth = () => window.innerWidth > maxCanvasWidth ? maxCanvasWidth : window.innerWidth;
@@ -11,7 +12,7 @@ const element = id => document.getElementById(id);
 const elements = className => document.getElementsByClassName(className);
 
 const canvas = element('smoke-canvas');
-const logoBackground = element('logo-background');
+const logo = element('logo-background');
 const selectMessage = element('select-message');
 const musicPlayer = element('music-player');
 const cover = element('cover');
@@ -21,12 +22,12 @@ const playIcon = element('play');
 const progressBar = element('progress-bar');
 const closeButtons = elements('close-button');
 
-const logo = new Logo(logoBackground);
+const header = new Header(logo);
 const footer = new Footer();
 const player = new Player(cover, title, progressBar, playIcon, 'playing');
 
 const universe = initUniverse(canvas, canvasWidth());
-const electricShockRisk = [universe.canvas, logoBackground];
+const electricShockRisk = [universe.canvas, logo];
 
 const stats = new Stats();
 stats.showPanel(0);
@@ -37,7 +38,6 @@ universe.renderer.setAnimationLoop(() => {
     universe.animate();
     universe.controls.update();
     universe.renderer.render(universe.scene, universe.camera);
-    universe.canvas.classList.add('visible');
     stats.end();
 });
 
@@ -67,7 +67,7 @@ function addMusicButtonEventListener() {
 function onMusicButtonClick(event) {
     createRipple(event);
     universe.showPortal(() => selectMessage.style.display = 'flex');
-    logo.moveUp();
+    header.moveUp();
     footer.hide();
 }
 
@@ -106,7 +106,7 @@ function onClose() {
     musicPlayer.style.display = 'none';
     player.pause();
     universe.hidePortal(() => {
-        logo.moveDown(() => addMusicButtonEventListener());
+        header.moveDown(() => addMusicButtonEventListener());
         footer.show();
     });
 }

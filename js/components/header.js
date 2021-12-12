@@ -1,4 +1,6 @@
-export default class Logo {
+import '/css/header.scss'
+
+export default class Header {
     constructor(logo) {
         this.logo = logo;
         this.clone();

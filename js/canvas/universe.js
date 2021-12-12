@@ -1,7 +1,7 @@
 import {DirectionalLight, MeshLambertMaterial, TextureLoader, Vector2} from 'three';
-import Smoke from './smoke.js';
-import Portal from './portal.js';
-import Cube from './cube.js';
+import Smoke from './smoke';
+import Portal from './portal';
+import Cube from './cube';
 
 export default class Universe {
     constructor(renderer, canvas, scene, camera, controls) {

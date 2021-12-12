@@ -1,4 +1,5 @@
-import songs from './songs.js';
+import songs from './config/songs';
+import '/css/player.scss'
 
 export default class Player {
     constructor(cover, title, progressBar, playIcon, playingClass) {

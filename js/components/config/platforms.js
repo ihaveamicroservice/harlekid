@@ -38,7 +38,7 @@ const spotify = {
 };
 
 const apple = {
-    name: 'Apple',
+    name: 'Apple Music',
     href: undefined,
     width: 35,
     src: new URL('/img/logos/apple.svg', import.meta.url),
