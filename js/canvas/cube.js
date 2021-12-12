@@ -19,7 +19,7 @@ export default class Cube {
     }
 
     drawObjects() {
-        const size = 1.25;
+        const size = 1.4;
         const geometry = new BoxGeometry(size, size, size);
         const materials = [...Array(6).keys()].map(x =>
             new MeshLambertMaterial({
