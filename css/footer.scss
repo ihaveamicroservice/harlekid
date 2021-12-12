@@ -47,9 +47,9 @@
       }
 
       .arrow {
-        width: 24px;
+        width: 30px;
         margin-top: 15px;
-        transition: transform 150ms linear;
+        transition: transform 150ms ease-out;
         animation: glow 2s infinite;
       }
     }
@@ -64,11 +64,11 @@
   }
 
   &.hide-transition .footer-button-group {
-    transition: transform 500ms linear 250ms;
+    transition: transform 500ms ease-out 250ms;
   }
 
   &.extend-transition .footer-button-group {
-    transition: transform 150ms linear;
+    transition: transform 150ms ease-out;
   }
 }
 
@@ -97,10 +97,10 @@
 @keyframes glow {
   0%, 100% {
     opacity: 0.5;
-    margin-top: 17px;
+    margin-top: 12px;
   }
   70% {
     opacity: 1;
-    margin-top: 15px;
+    margin-top: 10px;
   }
 }

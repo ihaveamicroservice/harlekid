@@ -40,13 +40,11 @@ export default class Footer {
 
     #getMusicGroup() {
         let platformGroup = this.#getGroup();
-        this.musicButton = document.createElement('a');
-        this.musicButton.classList.add('footer-item', 'button');
+        this.musicButton = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
         this.musicButton.id = 'music-button';
         this.musicButton.title = 'Let\'s go!';
 
-        let content = document.createElement('div');
-        content.classList.add('footer-item-content');
+        let content = Footer.#createElementWithClasses('div', ['footer-item-content']);
         content.textContent = 'music';
         this.musicButton.append(content);
 
@@ -74,15 +72,13 @@ export default class Footer {
     }
 
     #getGroup() {
-        let platformGroup = document.createElement('div');
-        platformGroup.classList.add('footer-button-group');
+        let platformGroup = Footer.#createElementWithClasses('div', ['footer-button-group']);
         platformGroup.style.transform = `skew(-${this.skewDegree}deg) translateY(${this.hiddenAreaHeight}px)`;
         return platformGroup;
     }
 
     static #getItem(platform) {
-        let item = document.createElement('a');
-        item.classList.add('footer-item', 'button');
+        let item = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
         item.style.background = platform.background;
         item.title = platform.name;
         if (platform.href) {
@@ -90,8 +86,7 @@ export default class Footer {
             item.target = '_blank';
         }
 
-        let svg = document.createElement('img');
-        svg.classList.add('footer-item-content');
+        let svg = Footer.#createElementWithClasses('img', ['footer-item-content']);
         svg.style.width = `${platform.width}px`;
         svg.src = platform.src;
         svg.alt = platform.name;
@@ -101,21 +96,21 @@ export default class Footer {
     }
 
     static #getEmptyItem() {
-        let emptyItem = document.createElement('a');
-        emptyItem.classList.add('footer-item');
-        return emptyItem;
+        return Footer.#createElementWithClasses('a', ['footer-item'])
     }
 
     static #getArrow() {
-        let arrow = document.createElement('a');
-        arrow.classList.add('footer-item', 'button');
-
-        let svg = document.createElement('img');
-        svg.classList.add('arrow');
+        let arrow = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
+        let svg = Footer.#createElementWithClasses('img', ['arrow']);
         svg.src = new URL('/img/arrow.svg', import.meta.url).toString();
-
         arrow.append(svg);
         return arrow;
+    }
+
+    static #createElementWithClasses(tagName, classes) {
+        let element = document.createElement(tagName);
+        element.classList.add(...classes);
+        return element;
     }
 
     #onArrowClick(platformGroup, platformCount) {

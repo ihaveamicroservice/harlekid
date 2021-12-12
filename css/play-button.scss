@@ -1,0 +1,50 @@
+$size: 20px;
+
+@function divideSizeBy($number) {
+  @return calc(#{$size} / #{$number});
+}
+
+#play {
+  width: $size;
+  height: $size;
+  position: relative;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-left-color: rgba(255, 255, 255, 0.9);
+    transition: 100ms;
+    border-top-width: divideSizeBy(4);
+    border-bottom-width: divideSizeBy(4);
+    border-left-width: divideSizeBy(2);
+  }
+
+  &:before {
+    left: 0;
+    top: 0;
+    height: divideSizeBy(2);
+    border-right-width: divideSizeBy(2);
+  }
+
+  &:after {
+    left: divideSizeBy(2);
+    top: divideSizeBy(4);
+    height: 0;
+    border-right-width: 0;
+  }
+
+  &.playing {
+    &:before, &:after {
+      height: $size;
+      border-width: 0 0 0 divideSizeBy(3);
+    }
+
+    &:after {
+      left: divideSizeBy(1.5);
+      top: 0;
+    }
+  }
+}

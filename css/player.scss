@@ -1,21 +1,22 @@
-.player {
+#player {
   position: fixed;
-  display: flex;
   bottom: 0;
   width: 100%;
   height: 70px;
   z-index: 1;
   overflow: hidden;
+  display: none;
 
   #cover-wrapper {
     position: relative;
     height: 70px;
     width: 70px;
+    background-color: rgba(0, 0, 0, 0.2);
 
-    #cover {
+    #cover-button, #cover {
       position: absolute;
       height: 100%;
-      width: 100%;
+      width: 70px;
     }
 
     #play-button {
@@ -32,93 +33,66 @@
     height: 3px;
   }
 
-  .close-button {
+  .player-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
-    width: 70px;
+    height: 100%;
+    width: 24px;
+    padding-left: 8px;
 
-    .cancel-icon {
-      height: 18px;
-      width: 18px;
-      opacity: 0.7;
+    &#spotify-button {
+      padding-right: 8px;
+
+      #spotify-button-icon {
+        width: 22px;
+        height: 100%;
+        margin-bottom: 2px;
+        -webkit-mask: url('/img/logos/spotify.svg') no-repeat center / contain;
+      }
     }
 
-    &:active .cancel-icon {
-      opacity: 1;
+    &#close-button {
+      padding-right: 16px;
+
+      #cancel-icon {
+        height: 18px;
+        width: 18px;
+        opacity: 0.7;
+      }
+
+      &:active #cancel-icon {
+        opacity: 1;
+      }
     }
   }
 
-  .player-text {
+  #player-text {
     flex: 1;
     display: flex;
     align-items: center;
-    padding-left: 15px;
+    position: relative;
     font-family: lemonMilk, serif;
     font-size: 15px;
-  }
-}
+    overflow: hidden;
 
-#music-player,
-#select-message {
-  display: none;
-}
-
-#play {
-  $size: 20px;
-
-  width: $size;
-  height: $size;
-  position: relative;
-
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    border-style: solid;
-    border-color: transparent;
-    border-left-color: rgba(255, 255, 255, 0.9);
-    transition: 100ms;
-  }
-
-  &:before {
-    left: 0;
-    top: 0;
-    height: $size/2;
-    border-width: $size/4 $size/2 $size/4 $size/2;
-  }
-
-  &:after {
-    left: $size/2;
-    top: $size/4;
-    height: 0;
-    border-width: $size/4 0 $size/4 $size/2;
-  }
-
-  &.playing {
-    &:before {
-      height: $size;
-      border-width: 0 0 0 $size/3;
+    #title {
+      width: 100%;
+      margin-left: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+  }
 
-    &:after {
-      left: $size/1.5;
-      top: 0;
-      height: $size;
-      border-width: 0 0 0 $size/3;
+  &.hidden-controls {
+    #cover-button {
+      display: none;
     }
   }
 }
 
 @media only screen and (min-width: 1000px) {
-  #music-player .player-text {
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  #select-message .player-text {
-    justify-content: center;
-    padding-left: 70px;
+  #player #player-text #title {
+    text-align: center;
   }
 }

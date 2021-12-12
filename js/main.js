@@ -8,26 +8,13 @@ import '/css/styles.scss'
 
 const maxCanvasWidth = 1500;
 const canvasWidth = () => window.innerWidth > maxCanvasWidth ? maxCanvasWidth : window.innerWidth;
-const element = id => document.getElementById(id);
-const elements = className => document.getElementsByClassName(className);
 
-const canvas = element('smoke-canvas');
-const logo = element('logo-background');
-const selectMessage = element('select-message');
-const musicPlayer = element('music-player');
-const cover = element('cover');
-const title = element('title');
-const playButton = element('play-button');
-const playIcon = element('play');
-const progressBar = element('progress-bar');
-const closeButtons = elements('close-button');
-
-const header = new Header(logo);
+const header = new Header();
 const footer = new Footer();
-const player = new Player(cover, title, progressBar, playIcon, 'playing');
+const player = new Player();
 
-const universe = initUniverse(canvas, canvasWidth());
-const electricShockRisk = [universe.canvas, logo];
+const universe = initUniverse(canvasWidth());
+const electricShockRisk = [universe.canvas, header.logo];
 
 const stats = new Stats();
 stats.showPanel(0);
@@ -51,12 +38,7 @@ window.addEventListener('resize', () => {
 
 electricShockRisk.forEach(e => e.addEventListener('pointerdown', onMouseDown));
 electricShockRisk.forEach(e => e.addEventListener('pointerup', onMouseUp));
-
-playButton.addEventListener('click', () => player.play());
-
-[...closeButtons].forEach(closeButton =>
-    closeButton.addEventListener('click', onClose)
-);
+player.closeButton.addEventListener('click', onClose);
 
 addMusicButtonEventListener();
 
@@ -66,7 +48,7 @@ function addMusicButtonEventListener() {
 
 function onMusicButtonClick(event) {
     createRipple(event);
-    universe.showPortal(() => selectMessage.style.display = 'flex');
+    universe.showPortal(() => player.show());
     header.moveUp();
     footer.hide();
 }
@@ -96,14 +78,11 @@ function onMouseUp(event) {
         faceIndex === undefined) {
         return;
     }
-    selectMessage.style.display = 'none';
-    musicPlayer.style.display = 'flex';
     player.selectSong(faceIndex);
 }
 
 function onClose() {
-    selectMessage.style.display = 'none';
-    musicPlayer.style.display = 'none';
+    player.hide();
     player.pause();
     universe.hidePortal(() => {
         header.moveDown(() => addMusicButtonEventListener());

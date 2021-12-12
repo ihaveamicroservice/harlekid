@@ -2,7 +2,9 @@ import {FogExp2, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
 import Universe from './universe';
 
-export function initUniverse(canvas, canvasWidth) {
+export function initUniverse(canvasWidth) {
+    const canvas = document.getElementById('smoke-canvas');
+
     const scene = new Scene();
     scene.fog = new FogExp2(0x11111f, .1);
 

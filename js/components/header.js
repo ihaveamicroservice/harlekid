@@ -1,8 +1,8 @@
 import '/css/header.scss'
 
 export default class Header {
-    constructor(logo) {
-        this.logo = logo;
+    constructor() {
+        this.logo = document.getElementById('logo-background');
         this.clone();
     }
 
