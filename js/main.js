@@ -1,38 +1,42 @@
-import Stats from 'three/examples/jsm/libs/stats.module';
 import Header from './components/header';
 import Player from './components/player';
-import {initUniverse} from './canvas/initializer';
+import {initializeThreeJsObjects} from './canvas/initializer';
 import {lifecycle} from './canvas/lifecycle';
 import Footer from './components/footer';
-import '/css/styles.scss'
+import Universe from './canvas/universe';
+import createRipple from './effects/ripple';
+import '/css/styles.scss';
 
-const maxCanvasWidth = 1500;
-const canvasWidth = () => window.innerWidth > maxCanvasWidth ? maxCanvasWidth : window.innerWidth;
-
+const [camera, canvas, antialiasingComposer, controls, fxaaPass, renderer, scene, stats] = initializeThreeJsObjects();
+const universe = new Universe(scene, camera, controls);
 const header = new Header();
 const footer = new Footer();
 const player = new Player();
+const electricShockRisk = [canvas, header.logo];
 
-const universe = initUniverse(canvasWidth());
-const electricShockRisk = [universe.canvas, header.logo];
+updateFxaaPass();
+animate();
 
-const stats = new Stats();
-stats.showPanel(0);
-document.body.appendChild(stats.dom);
-
-universe.renderer.setAnimationLoop(() => {
+function animate() {
+    requestAnimationFrame(animate);
     stats.begin();
     universe.animate();
-    universe.controls.update();
-    universe.renderer.render(universe.scene, universe.camera);
+    controls.update();
+    if (window.innerHeight > 1000) {
+        renderer.render(scene, camera);
+    } else {
+        antialiasingComposer.render();
+    }
     stats.end();
-});
+}
 
 window.addEventListener('resize', () => {
-    let width = canvasWidth();
-    universe.camera.aspect = width / window.innerHeight;
-    universe.camera.updateProjectionMatrix();
-    universe.renderer.setSize(width, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    antialiasingComposer.setSize(window.innerWidth, window.innerHeight);
+    updateFxaaPass();
+    controls.handleResize();
     document.body.style.height = `${window.innerHeight}px`;
 });
 
@@ -47,25 +51,10 @@ function addMusicButtonEventListener() {
 }
 
 function onMusicButtonClick(event) {
-    createRipple(event);
     universe.showPortal(() => player.show());
     header.moveUp();
     footer.hide();
-}
-
-function createRipple(event) {
-    const button = event.currentTarget;
-    const circle = document.createElement('span');
-    const diameter = Math.max(button.clientWidth, button.clientHeight);
-    const radius = diameter / 2;
-
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.offsetX - radius}px`;
-    circle.style.top = `${event.offsetY - radius}px`;
-    circle.classList.add('ripple');
-
-    circle.addEventListener('animationend', () => circle.remove());
-    button.appendChild(circle);
+    createRipple(event);
 }
 
 function onMouseDown(event) {
@@ -88,4 +77,10 @@ function onClose() {
         header.moveDown(() => addMusicButtonEventListener());
         footer.show();
     });
+}
+
+function updateFxaaPass() {
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (window.innerWidth * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (window.innerHeight * pixelRatio);
 }

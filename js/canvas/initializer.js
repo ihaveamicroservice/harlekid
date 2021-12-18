@@ -1,20 +1,31 @@
 import {FogExp2, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
-import Universe from './universe';
+import Stats from 'three/examples/jsm/libs/stats.module';
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
+import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass';
+import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader';
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
 
-export function initUniverse(canvasWidth) {
+export function initializeThreeJsObjects() {
+    const stats = new Stats();
+    stats.showPanel(0);
+    document.body.appendChild(stats.dom);
+
     const canvas = document.getElementById('smoke-canvas');
 
     const scene = new Scene();
     scene.fog = new FogExp2(0x11111f, .1);
 
-    const camera = new PerspectiveCamera(80, canvasWidth / window.innerHeight, 1, 1000);
+    const camera = new PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 10);
     camera.position.z = 3;
     scene.add(camera);
 
-    const renderer = new WebGLRenderer({canvas: canvas, antialias: true});
+    const renderer = new WebGLRenderer({
+        canvas: canvas,
+        powerPreference: 'high-performance'
+    });
     renderer.setClearColor(0x11111f, 1);
-    renderer.setSize(canvasWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
     const controls = new TrackballControls(camera, renderer.domElement);
     controls.noZoom = true;
@@ -22,5 +33,11 @@ export function initUniverse(canvasWidth) {
     controls.noRotate = true;
     controls.rotateSpeed = 4;
 
-    return new Universe(renderer, canvas, scene, camera, controls);
+    const renderPass = new RenderPass(scene, camera);
+    const fxaaPass = new ShaderPass(FXAAShader);
+    const antialiasingComposer = new EffectComposer(renderer);
+    antialiasingComposer.addPass(renderPass);
+    antialiasingComposer.addPass(fxaaPass);
+
+    return [camera, canvas, antialiasingComposer, controls, fxaaPass, renderer, scene, stats];
 }

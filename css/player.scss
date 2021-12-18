@@ -23,6 +23,11 @@
       position: absolute;
       padding: 25px;
       background-color: rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+
+      #play-icon {
+        pointer-events: none;
+      }
     }
   }
 
@@ -44,10 +49,14 @@
     &#spotify-button {
       padding-right: 8px;
 
-      #spotify-button-icon {
+      &.hidden {
+        visibility: hidden;
+      }
+
+      #spotify-icon {
         width: 22px;
         height: 100%;
-        margin-bottom: 2px;
+        margin-bottom: 1px;
         -webkit-mask: url('/img/logos/spotify.svg') no-repeat center / contain;
       }
     }
@@ -81,6 +90,7 @@
       margin-left: 18px;
       overflow: hidden;
       text-overflow: ellipsis;
+      user-select: none;
     }
   }
 

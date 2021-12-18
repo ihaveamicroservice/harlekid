@@ -31,7 +31,7 @@ const linkedin = {
 
 const spotify = {
     name: 'Spotify',
-    href: undefined,
+    href: new URL('https://open.spotify.com/artist/3ZnB9imzGnl5mdREkfSgd3', import.meta.url),
     width: 26,
     src: new URL('/img/logos/spotify.svg', import.meta.url),
     background: '#1db954'

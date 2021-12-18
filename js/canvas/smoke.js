@@ -18,9 +18,12 @@ export default class Smoke {
         const geometry = new PlaneBufferGeometry(10, 10);
         for (let i = 0; i < 10; i++) {
             const particle = new Mesh(geometry, this.material);
-            particle.position.set(this.randomize(4, 2), this.randomize(10, 5), this.randomize(5, 10));
+            particle.position.set(
+                this.randomize(8, 4),
+                this.randomize(10, 5),
+                this.randomize(5, 10)
+            );
             particle.rotation.z = Math.random() * 360;
-            particle.material.opacity = 0.9;
             this.smokeParticles.push(particle);
             this.camera.add(particle);
         }
@@ -45,16 +48,16 @@ export default class Smoke {
         }
         switch (Math.sign(mouse.y)) {
             case 1: {
-                flash.position.set(0, 10, -5);
+                flash.position.set(0, 10, -4.5);
                 this.logo.classList.add(this.topClass);
                 break;
             }
             case 0: {
-                flash.position.set(0, 0, -5);
+                flash.position.set(0, 0, -4.5);
                 break;
             }
             case -1: {
-                flash.position.set(0, -10, -5);
+                flash.position.set(0, -10, -4.5);
                 this.logo.classList.add(this.bottomClass);
                 break;
             }

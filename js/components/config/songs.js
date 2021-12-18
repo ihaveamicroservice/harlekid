@@ -2,6 +2,7 @@ const jekami = {
     title: 'jekami',
     cover: new URL('/img/covers/jekami.jpg', import.meta.url),
     song: new URL('/mp3/jekami.mp3', import.meta.url),
+    href: new URL('https://open.spotify.com/album/2Svs2VEWvwCdSa0dszmUXl', import.meta.url),
     color: 0xe0e100,
     colorHex: '#e0e100'
 };
@@ -10,6 +11,7 @@ const tanzt = {
     title: 'tanzt',
     cover: new URL('/img/covers/tanzt.jpg', import.meta.url),
     song: new URL('/mp3/tanzt.mp3', import.meta.url),
+    href: undefined,
     color: 0xd60000,
     colorHex: '#d60000'
 };
@@ -18,6 +20,7 @@ const freieEnergie = {
     title: 'freie energie',
     cover: new URL('/img/covers/freie_energie.jpg', import.meta.url),
     song: new URL('/mp3/freie_energie.mp3', import.meta.url),
+    href: undefined,
     color: 0x00f0e5,
     colorHex: '#00f0e5'
 };

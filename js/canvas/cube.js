@@ -1,4 +1,12 @@
-import {BoxGeometry, Mesh, MeshLambertMaterial, PointLight, Raycaster, TextureLoader, Vector2} from 'three';
+import {
+    BoxBufferGeometry,
+    Mesh,
+    MeshLambertMaterial,
+    PointLight,
+    Raycaster,
+    TextureLoader,
+    Vector2
+} from 'three';
 import songs from '../components/config/songs';
 import {lifecycle, assignAnimationsToLifecycles} from './lifecycle';
 
@@ -20,7 +28,7 @@ export default class Cube {
 
     drawObjects() {
         const size = 1.4;
-        const geometry = new BoxGeometry(size, size, size);
+        const geometry = new BoxBufferGeometry(size, size, size);
         const materials = [...Array(6).keys()].map(x =>
             new MeshLambertMaterial({
                 map: new TextureLoader().load(songs.get(x).cover)

@@ -4,7 +4,7 @@ $size: 20px;
   @return calc(#{$size} / #{$number});
 }
 
-#play {
+#play-icon {
   width: $size;
   height: $size;
   position: relative;

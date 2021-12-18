@@ -102,7 +102,7 @@ export default class Footer {
     static #getArrow() {
         let arrow = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
         let svg = Footer.#createElementWithClasses('img', ['arrow']);
-        svg.src = new URL('/img/arrow.svg', import.meta.url).toString();
+        svg.src = new URL('/img/icons/arrow.svg', import.meta.url).toString();
         arrow.append(svg);
         return arrow;
     }

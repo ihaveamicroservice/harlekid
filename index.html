@@ -20,26 +20,25 @@
 <div id="footer" class="extend-transition"></div>
 <div class="background-color hidden-controls" id="player">
     <div id="cover-wrapper">
-        <div id="cover-button">
+        <a id="cover-button">
             <img id="cover" alt="cover-image">
             <div class="button" id="play-button">
-                <div id="play" class="playing"></div>
+                <div class="playing" id="play-icon"></div>
             </div>
-        </div>
+        </a>
     </div>
     <div id="player-text">
         <div id="title">select a song</div>
     </div>
-    <div class="button player-button" id="spotify-button">
-        <div id="spotify-button-icon"></div>
-    </div>
-    <div class="button player-button" id="close-button">
-        <img id="cancel-icon" src="/img/cancel.svg" alt="cancel">
-    </div>
+    <a class="button player-button hidden" id="spotify-button" target="_blank">
+        <div id="spotify-icon"></div>
+    </a>
+    <a class="button player-button" id="close-button">
+        <img id="cancel-icon" src="/img/icons/cancel.svg" alt="cancel">
+    </a>
     <div id="progress-bar"></div>
 </div>
 <canvas id="smoke-canvas"></canvas>
-<div id="canvas-gradient"></div>
 <script type="module" src="/js/main.js"></script>
 </body>
 

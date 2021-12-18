@@ -4,9 +4,7 @@ import Portal from './portal';
 import Cube from './cube';
 
 export default class Universe {
-    constructor(renderer, canvas, scene, camera, controls) {
-        this.renderer = renderer;
-        this.canvas = canvas;
+    constructor(scene, camera, controls) {
         this.scene = scene;
         this.camera = camera;
         this.controls = controls;
@@ -30,9 +28,7 @@ export default class Universe {
     }
 
     drawLights() {
-        const directionalLight = new DirectionalLight(0xffffff, 0.7);
-        directionalLight.position.z = 250;
-        this.camera.add(directionalLight);
+        this.camera.add(new DirectionalLight(0xffffff, 0.8));
     }
 
     animate() {

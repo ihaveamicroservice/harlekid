@@ -1,4 +1,5 @@
 import songs from './config/songs';
+import createRipple from '../effects/ripple';
 import '/css/player.scss';
 import '/css/play-button.scss';
 
@@ -9,11 +10,13 @@ export default class Player {
         this.title = document.getElementById('title');
         this.progressBar = document.getElementById('progress-bar');
         this.closeButton = document.getElementById('close-button');
-        this.spotifyButtonIcon = document.getElementById('spotify-button-icon');
-        this.playIcon = document.getElementById('play');
+        this.spotifyButton = document.getElementById('spotify-button');
+        this.spotifyButtonIcon = document.getElementById('spotify-icon');
+        this.playButton = document.getElementById('play-button');
+        this.playIcon = document.getElementById('play-icon');
         this.playingClass = 'playing';
         this.audioEventListeners = this.#getAudioEventListeners();
-        this.#addClickEventListener();
+        this.#addClickEventListeners();
     }
 
     hide() {
@@ -29,7 +32,7 @@ export default class Player {
     }
 
     play() {
-        !this.audio.paused ? this.audio.pause() : this.audio.play();
+        this.audio && !this.audio.paused ? this.audio.pause() : this.audio.play();
     }
 
     selectSong(index) {
@@ -43,9 +46,15 @@ export default class Player {
         this.cover.src = song.cover;
         this.title.textContent = song.title;
         this.title.style.color = song.colorHex;
-        this.spotifyButtonIcon.style.backgroundColor = song.colorHex;
         this.progressBar.style.backgroundColor = song.colorHex;
         this.progressBar.style.width = '0';
+        if (song.href) {
+            this.spotifyButton.classList.remove('hidden');
+            this.spotifyButton.href = song.href;
+            this.spotifyButtonIcon.style.backgroundColor = song.colorHex;
+        } else {
+            this.spotifyButton.classList.add('hidden');
+        }
     }
 
     #playSong(song) {
@@ -64,8 +73,12 @@ export default class Player {
         this.audioEventListeners.forEach((listener, type) => this.audio.addEventListener(type, listener));
     }
 
-    #addClickEventListener() {
-        document.getElementById('play-button').addEventListener('click', () => this.play());
+    #addClickEventListeners() {
+        this.playButton.addEventListener('click', event => {
+            this.play();
+            createRipple(event);
+        });
+        this.spotifyButton.addEventListener('click', () => this.pause());
     }
 
     #getAudioEventListeners() {
