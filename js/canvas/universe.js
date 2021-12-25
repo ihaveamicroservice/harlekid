@@ -2,6 +2,7 @@ import {DirectionalLight, MeshLambertMaterial, TextureLoader, Vector2} from 'thr
 import Smoke from './smoke';
 import Portal from './portal';
 import Cube from './cube';
+import Stars from './stars';
 
 export default class Universe {
     constructor(scene, camera, controls) {
@@ -16,7 +17,7 @@ export default class Universe {
     }
 
     drawObjects() {
-        const texture = new TextureLoader().load(new URL('/img/smoke.png', import.meta.url));
+        const texture = new TextureLoader().load(new URL('/img/canvas/smoke.png', import.meta.url));
         const material = new MeshLambertMaterial({
             map: texture,
             transparent: true
@@ -24,7 +25,8 @@ export default class Universe {
         this.smoke = new Smoke(this.camera, material);
         this.portal = new Portal(this.camera, material);
         this.cube = new Cube(this.scene, this.camera, this.controls, this.portal);
-        this.objects = [this.smoke, this.portal, this.cube];
+        this.stars = new Stars(this.scene);
+        this.objects = [this.smoke, this.portal, this.cube, this.stars];
     }
 
     drawLights() {
