@@ -6,6 +6,7 @@ import Footer from './components/footer';
 import Universe from './canvas/universe';
 import createRipple from './effects/ripple';
 import '/css/styles.scss';
+import '/css/stats.scss';
 
 const [camera, canvas, antialiasingComposer, controls, fxaaPass, renderer, scene, stats] = initializeThreeJsObjects();
 const universe = new Universe(scene, camera, controls);
@@ -44,8 +45,11 @@ electricShockRisk.forEach(e => e.addEventListener('pointerdown', onMouseDown));
 electricShockRisk.forEach(e => e.addEventListener('pointerup', onMouseUp));
 player.closeButton.addEventListener('click', onClose);
 
-addMusicButtonEventListener();
+document.getElementById('stats-button').addEventListener('click', () => {
+    document.getElementById('stats-container').classList.toggle('hidden');
+});
 
+addMusicButtonEventListener();
 function addMusicButtonEventListener() {
     footer.musicButton.addEventListener('click', onMusicButtonClick, {once: true});
 }

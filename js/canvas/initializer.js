@@ -7,11 +7,12 @@ import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader';
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
 
 export function initializeThreeJsObjects() {
+    const statsContainer = document.getElementById('stats-container');
+    const canvas = document.getElementById('smoke-canvas');
+
     const stats = new Stats();
     stats.showPanel(0);
-    document.body.appendChild(stats.dom);
-
-    const canvas = document.getElementById('smoke-canvas');
+    statsContainer.appendChild(stats.dom);
 
     const scene = new Scene();
     scene.fog = new FogExp2(0x11111f, .1);
