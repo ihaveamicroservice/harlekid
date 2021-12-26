@@ -10,35 +10,13 @@ export default class Smoke {
         this.topClass = 'glitch-top';
         this.bottomClass = 'glitch-bottom';
         this.logo = document.getElementById('logo');
-        this.drawObjects();
-        this.drawLights();
-    }
-
-    drawObjects() {
-        const geometry = new PlaneBufferGeometry(10, 10);
-        for (let i = 0; i < 10; i++) {
-            const particle = new Mesh(geometry, this.material);
-            particle.position.set(
-                this.randomize(8, 4),
-                this.randomize(10, 5),
-                this.randomize(5, 10)
-            );
-            particle.rotation.z = Math.random() * 360;
-            this.smokeParticles.push(particle);
-            this.camera.add(particle);
-        }
-    }
-
-    drawLights() {
-        for (let i = 0; i < 3; i++) {
-            this.flashes.push(new PointLight(0x062d89, 0, 10, 5));
-        }
-        this.flashes.forEach(f => this.camera.add(f));
+        this.#drawObjects();
+        this.#drawLights();
     }
 
     animate() {
-        this.rotate(-0.002)
-        this.flashingFlashes.forEach(f => f.power = f.power === 0 ? 10000 : 0);
+        this.#rotate(-0.002);
+        this.#flash(10000);
     }
 
     onMouseUp(mouse) {
@@ -63,10 +41,38 @@ export default class Smoke {
             }
         }
         this.flashingFlashes.unshift(flash);
-        setTimeout(() => this.stopFlashing(flash), 500);
+        setTimeout(() => this.#stopFlashing(flash), 500);
     }
 
-    stopFlashing(flash) {
+    #drawObjects() {
+        const geometry = new PlaneBufferGeometry(10, 10);
+        for (let i = 0; i < 10; i++) {
+            const particle = new Mesh(geometry, this.material);
+            particle.position.x = Math.random() * 8 - 4;
+            particle.position.y = Math.random() * 10 - 5;
+            particle.position.z = Math.random() * 5 - 10;
+            particle.rotation.z = Math.random() * 360;
+            this.smokeParticles.push(particle);
+            this.camera.add(particle);
+        }
+    }
+
+    #drawLights() {
+        for (let i = 0; i < 3; i++) {
+            this.flashes.push(new PointLight(0x062d89, 0, 10, 5));
+        }
+        this.flashes.forEach(f => this.camera.add(f));
+    }
+
+    #rotate(speed) {
+        this.smokeParticles.forEach(p => p.rotation.z += speed);
+    }
+
+    #flash(power) {
+        this.flashingFlashes.forEach(f => f.power = f.power === 0 ? power : 0);
+    }
+
+    #stopFlashing(flash) {
         flash.power = 0;
         this.flashes.unshift(this.flashingFlashes.pop());
         if (!this.flashingFlashes.some(f => f.position.y > 0)) {
@@ -75,13 +81,5 @@ export default class Smoke {
         if (!this.flashingFlashes.some(f => f.position.y < 0)) {
             this.logo.classList.remove(this.bottomClass);
         }
-    }
-
-    rotate(speed) {
-        this.smokeParticles.forEach(p => p.rotation.z += speed);
-    }
-
-    randomize(multiplier, subtrahend) {
-        return Math.random() * multiplier - subtrahend;
     }
 }

@@ -22,26 +22,8 @@ export default class Cube {
         this.lifecycleStage = lifecycle.hidden;
         this.beenThere = false;
         this.animations = assignAnimationsToLifecycles.apply(this);
-        this.drawObjects();
-        this.drawLights();
-    }
-
-    drawObjects() {
-        const size = 1.4;
-        const geometry = new BoxBufferGeometry(size, size, size);
-        const materials = [...Array(6).keys()].map(x =>
-            new MeshLambertMaterial({
-                map: new TextureLoader().load(songs.get(x).cover)
-            })
-        );
-        this.cube = new Mesh(geometry, materials);
-        this.cube.scale.set(this.scale, this.scale, this.scale);
-        this.scene.add(this.cube);
-    }
-
-    drawLights() {
-        this.cubeLight = new PointLight(0xffffff, 1, 10);
-        this.camera.add(this.cubeLight);
+        this.#drawObjects();
+        this.#drawLights();
     }
 
     animate() {
@@ -56,7 +38,7 @@ export default class Cube {
             const faceIndex = Math.floor(intersects[0].faceIndex / 2);
             this.portal.flashColor = songs.get(faceIndex).color;
         }
-        this.rotate(0.002);
+        this.#rotate(0.002);
     }
 
     animateEntering() {
@@ -69,7 +51,7 @@ export default class Cube {
             this.showCallback();
         }
         this.cube.scale.set(this.scale, this.scale, this.scale);
-        this.rotate(0.15);
+        this.#rotate(0.15);
     }
 
     animateLeaving() {
@@ -84,7 +66,7 @@ export default class Cube {
                 this.scale = 1.2;
                 this.beenThere = true;
             }
-            this.rotate(0.05);
+            this.#rotate(0.05);
         } else {
             this.scale -= 0.05;
             if (this.scale <= 0) {
@@ -95,7 +77,7 @@ export default class Cube {
             if (this.scale.toFixed(2) === '0.35') {
                 this.hideCallback();
             }
-            this.rotate(-0.15);
+            this.#rotate(-0.15);
         }
         this.cube.scale.set(this.scale, this.scale, this.scale);
     }
@@ -118,7 +100,25 @@ export default class Cube {
         this.hideCallback = callback;
     }
 
-    rotate(speed) {
+    #drawObjects() {
+        const size = 1.4;
+        const geometry = new BoxBufferGeometry(size, size, size);
+        const materials = [...Array(6).keys()].map(x =>
+            new MeshLambertMaterial({
+                map: new TextureLoader().load(songs.get(x).cover)
+            })
+        );
+        this.cube = new Mesh(geometry, materials);
+        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.scene.add(this.cube);
+    }
+
+    #drawLights() {
+        this.cubeLight = new PointLight(0xffffff, 1, 10);
+        this.camera.add(this.cubeLight);
+    }
+
+    #rotate(speed) {
         this.cube.rotation.x += speed;
         this.cube.rotation.y += speed;
     }

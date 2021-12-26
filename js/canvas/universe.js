@@ -12,25 +12,8 @@ export default class Universe {
         this.mouseDown = new Vector2();
         this.mouse = new Vector2();
         this.center = new Vector2(0, 0);
-        this.drawObjects();
-        this.drawLights();
-    }
-
-    drawObjects() {
-        const texture = new TextureLoader().load(new URL('/img/canvas/smoke.png', import.meta.url));
-        const material = new MeshLambertMaterial({
-            map: texture,
-            transparent: true
-        });
-        this.smoke = new Smoke(this.camera, material);
-        this.portal = new Portal(this.camera, material);
-        this.cube = new Cube(this.scene, this.camera, this.controls, this.portal);
-        this.stars = new Stars(this.scene);
-        this.objects = [this.smoke, this.portal, this.cube, this.stars];
-    }
-
-    drawLights() {
-        this.camera.add(new DirectionalLight(0xffffff, 0.8));
+        this.#drawObjects();
+        this.#drawLights();
     }
 
     animate() {
@@ -38,12 +21,12 @@ export default class Universe {
     }
 
     onMouseDown(event) {
-        this.updateVector(event);
+        this.#updateVector(event);
         this.mouseDown = this.mouse.clone()
     }
 
     onMouseUp(event) {
-        this.updateVector(event);
+        this.#updateVector(event);
         if (!this.mouseDown.equals(this.mouse)) {
             return;
         }
@@ -60,7 +43,25 @@ export default class Universe {
         this.cube.hide(() => this.portal.hide(callback, () => this.smoke.onMouseUp(this.center)));
     }
 
-    updateVector(event) {
+    #drawObjects() {
+        const texture = new TextureLoader().load(new URL('/img/canvas/smoke.png', import.meta.url));
+        const material = new MeshLambertMaterial({
+            map: texture,
+            transparent: true,
+            color: 0xc1cee2
+        });
+        this.smoke = new Smoke(this.camera, material);
+        this.portal = new Portal(this.camera, material);
+        this.cube = new Cube(this.scene, this.camera, this.controls, this.portal);
+        this.stars = new Stars(this.scene);
+        this.objects = [this.smoke, this.portal, this.cube, this.stars];
+    }
+
+    #drawLights() {
+        this.camera.add(new DirectionalLight(0xffffff, 0.7));
+    }
+
+    #updateVector(event) {
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }

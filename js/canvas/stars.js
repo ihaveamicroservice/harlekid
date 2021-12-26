@@ -4,10 +4,14 @@ export default class Stars {
     constructor(scene) {
         this.scene = scene;
         this.starCount = 1000;
-        this.drawObjects();
+        this.#drawObjects();
     }
 
-    drawObjects() {
+    animate() {
+        this.#rotate(0.0002);
+    }
+
+    #drawObjects() {
         const star = new TextureLoader().load(new URL('/img/canvas/star.png', import.meta.url));
         const geometry = new BufferGeometry();
         geometry.setAttribute('position', new BufferAttribute(this.#getStarPositions(), 3));
@@ -21,9 +25,9 @@ export default class Stars {
         this.scene.add(this.particlesMesh);
     }
 
-    animate() {
-        this.particlesMesh.rotation.x += 0.0002;
-        this.particlesMesh.rotation.y += 0.0002;
+    #rotate(speed) {
+        this.particlesMesh.rotation.x += speed;
+        this.particlesMesh.rotation.y += speed;
     }
 
     #getStarPositions() {
