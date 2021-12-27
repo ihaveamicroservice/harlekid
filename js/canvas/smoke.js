@@ -1,4 +1,5 @@
 import {Mesh, PlaneBufferGeometry, PointLight} from 'three';
+import Randomizer from './randomizer';
 
 export default class Smoke {
     constructor(camera, material) {
@@ -26,16 +27,16 @@ export default class Smoke {
         }
         switch (Math.sign(mouse.y)) {
             case 1: {
-                flash.position.set(0, 10, -4.5);
+                flash.position.set(0, 9, -3);
                 this.logo.classList.add(this.topClass);
                 break;
             }
             case 0: {
-                flash.position.set(0, 0, -4.5);
+                flash.position.set(0, 0, -3);
                 break;
             }
             case -1: {
-                flash.position.set(0, -10, -4.5);
+                flash.position.set(0, -9, -3);
                 this.logo.classList.add(this.bottomClass);
                 break;
             }
@@ -46,12 +47,13 @@ export default class Smoke {
 
     #drawObjects() {
         const geometry = new PlaneBufferGeometry(10, 10);
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 8; i++) {
             const particle = new Mesh(geometry, this.material);
-            particle.position.x = Math.random() * 8 - 4;
-            particle.position.y = Math.random() * 10 - 5;
-            particle.position.z = Math.random() * 5 - 10;
+            particle.position.x = Math.random() * 4 - 2;
+            particle.position.y = Math.random() * 6 - 3;
+            particle.position.z = Randomizer.getRandomArbitrary(-4.2, -4.3);
             particle.rotation.z = Math.random() * 360;
+            particle.scale.setScalar(Randomizer.getRandomArbitrary(0.3, 0.9));
             this.smokeParticles.push(particle);
             this.camera.add(particle);
         }

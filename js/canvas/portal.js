@@ -94,8 +94,8 @@ export default class Portal {
     }
 
     #drawLights() {
-        this.portalFlash = new PointLight(this.flashColor, 0, 10, 5);
-        this.portalFlash.position.z = -3;
+        this.portalFlash = new PointLight(this.flashColor, 0, 7, 5);
+        this.portalFlash.position.z = -2.8;
         this.camera.add(this.portalFlash);
     }
 

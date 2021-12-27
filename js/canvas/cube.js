@@ -50,7 +50,7 @@ export default class Cube {
             this.portal.flash = true;
             this.showCallback();
         }
-        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.cube.scale.setScalar(this.scale);
         this.#rotate(0.15);
     }
 
@@ -79,7 +79,7 @@ export default class Cube {
             }
             this.#rotate(-0.15);
         }
-        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.cube.scale.setScalar(this.scale);
     }
 
     onMouseUp(mouse) {
@@ -109,7 +109,7 @@ export default class Cube {
             })
         );
         this.cube = new Mesh(geometry, materials);
-        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.cube.scale.setScalar(this.scale);
         this.scene.add(this.cube);
     }
 

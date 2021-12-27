@@ -1,25 +1,23 @@
-import {BufferAttribute, BufferGeometry, Points, PointsMaterial, TextureLoader} from 'three';
+import {BufferAttribute, BufferGeometry, Points, PointsMaterial} from 'three';
+import Randomizer from './randomizer';
 
 export default class Stars {
     constructor(scene) {
         this.scene = scene;
-        this.starCount = 1000;
+        this.starCount = 500;
         this.#drawObjects();
     }
 
     animate() {
-        this.#rotate(0.0002);
+        this.#rotate(0.0003);
     }
 
     #drawObjects() {
-        const star = new TextureLoader().load(new URL('/img/canvas/star.png', import.meta.url));
         const geometry = new BufferGeometry();
         geometry.setAttribute('position', new BufferAttribute(this.#getStarPositions(), 3));
         const material = new PointsMaterial({
-            size: 0.04,
-            map: star,
-            transparent: true,
-            opacity: 0.7
+            size: 0.07,
+            color: 0xaaaaaa
         });
         this.particlesMesh = new Points(geometry, material);
         this.scene.add(this.particlesMesh);
@@ -34,20 +32,8 @@ export default class Stars {
         const positions = new Float32Array(this.starCount * 3);
         for (let i = 0; i < positions.length; i = i + 3) {
             [i, i + 1, i + 2].forEach(index => positions[index] = (Math.random() - 0.5) * 10);
-            positions[i + Stars.#getRandomInt(0, 3)] = Stars.#getRandomArbitrary(2.5, 5) * Stars.#getRandomSign();
+            positions[i + Randomizer.getRandomInt(0, 3)] = Randomizer.getRandomArbitrary(3.5, 5) * Randomizer.getRandomSign();
         }
         return positions;
-    }
-
-    static #getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    static #getRandomInt(min, max) {
-        return Math.floor(Stars.#getRandomArbitrary(min, max));
-    }
-
-    static #getRandomSign() {
-        return Math.random() < 0.5 ? -1 : 1;
     }
 }
