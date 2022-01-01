@@ -6,12 +6,13 @@
   z-index: 1;
   overflow: hidden;
   display: none;
+  background-color: rgba(0, 0, 0, 0.3);
 
   #cover-wrapper {
     position: relative;
     height: 70px;
     width: 70px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
 
     #cover-button, #cover {
       position: absolute;
@@ -22,8 +23,8 @@
     #play-button {
       position: absolute;
       padding: 25px;
-      background-color: rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.1);
 
       #play-icon {
         pointer-events: none;
@@ -83,6 +84,7 @@
     position: relative;
     font-family: lemonMilk, serif;
     font-size: 15px;
+    color: #fff;
     overflow: hidden;
 
     #title {
