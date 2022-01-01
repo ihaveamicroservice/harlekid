@@ -1,10 +1,10 @@
-import {BufferAttribute, BufferGeometry, Points, PointsMaterial} from 'three';
+import {BufferAttribute, BufferGeometry, Float32BufferAttribute, Points, PointsMaterial} from 'three';
 import Randomizer from './randomizer';
 
 export default class Stars {
     constructor(scene) {
         this.scene = scene;
-        this.starCount = 500;
+        this.rainbow = window.location.hostname.endsWith('gay');
         this.#drawObjects();
     }
 
@@ -14,11 +14,17 @@ export default class Stars {
 
     #drawObjects() {
         const geometry = new BufferGeometry();
-        geometry.setAttribute('position', new BufferAttribute(this.#getStarPositions(), 3));
+        const starPositions = Stars.#getStarPositions(1000);
         const material = new PointsMaterial({
             size: 0.07,
-            color: 0xaaaaaa
+            vertexColors: this.rainbow
         });
+        geometry.setAttribute('position', new BufferAttribute(starPositions, 3));
+        if (this.rainbow) {
+            geometry.setAttribute('color', new Float32BufferAttribute(Stars.#getStarColors(starPositions), 3));
+        } else {
+            material.color.setHex(0xaaaaaa);
+        }
         this.particlesMesh = new Points(geometry, material);
         this.scene.add(this.particlesMesh);
     }
@@ -28,12 +34,16 @@ export default class Stars {
         this.particlesMesh.rotation.y += speed;
     }
 
-    #getStarPositions() {
-        const positions = new Float32Array(this.starCount * 3);
+    static #getStarPositions(starCount) {
+        const positions = new Float32Array(starCount * 3);
         for (let i = 0; i < positions.length; i = i + 3) {
             [i, i + 1, i + 2].forEach(index => positions[index] = (Math.random() - 0.5) * 10);
             positions[i + Randomizer.getRandomInt(0, 3)] = Randomizer.getRandomArbitrary(3.5, 5) * Randomizer.getRandomSign();
         }
         return positions;
+    }
+
+    static #getStarColors(starPositions) {
+        return [...starPositions].map(position => position / 10 + 0.5);
     }
 }
