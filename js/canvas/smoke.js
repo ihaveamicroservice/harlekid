@@ -10,7 +10,7 @@ export default class Smoke {
         this.flashingFlashes = [];
         this.topClass = 'glitch-top';
         this.bottomClass = 'glitch-bottom';
-        this.logo = document.getElementById('logo');
+        this.logoSvg = document.getElementById('logo').firstElementChild;
         this.#drawObjects();
         this.#drawLights();
     }
@@ -27,8 +27,8 @@ export default class Smoke {
         }
         switch (Math.sign(mouse.y)) {
             case 1: {
-                flash.position.set(0, 9, -3);
-                this.logo.classList.add(this.topClass);
+                flash.position.set(0, 8, -3);
+                this.logoSvg.classList.add(this.topClass);
                 break;
             }
             case 0: {
@@ -36,8 +36,8 @@ export default class Smoke {
                 break;
             }
             case -1: {
-                flash.position.set(0, -9, -3);
-                this.logo.classList.add(this.bottomClass);
+                flash.position.set(0, -8, -3);
+                this.logoSvg.classList.add(this.bottomClass);
                 break;
             }
         }
@@ -78,10 +78,10 @@ export default class Smoke {
         flash.power = 0;
         this.flashes.unshift(this.flashingFlashes.pop());
         if (!this.flashingFlashes.some(f => f.position.y > 0)) {
-            this.logo.classList.remove(this.topClass);
+            this.logoSvg.classList.remove(this.topClass);
         }
         if (!this.flashingFlashes.some(f => f.position.y < 0)) {
-            this.logo.classList.remove(this.bottomClass);
+            this.logoSvg.classList.remove(this.bottomClass);
         }
     }
 }

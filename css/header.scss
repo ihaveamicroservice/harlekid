@@ -1,20 +1,17 @@
-#logo-background {
+.logo {
   position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
   z-index: 1;
-  transition: top 250ms ease-in, padding 250ms ease-in;
   align-self: center;
   padding: 10px 0 10px 0;
   background-color: rgba(0, 0, 0, 0.3);
 
-  #logo {
+  .logo-svg {
     position: relative;
-    width: 100%;
     max-width: 1000px;
     overflow: hidden;
-    transition: all 500ms ease-out 250ms;
 
     &:before, &:after {
       content: '';
@@ -41,8 +38,8 @@
     }
 
     &.glitch-top:before {
-       animation: glitch-top 50ms infinite step-start;
-     }
+      animation: glitch-top 50ms infinite step-start;
+    }
 
     &.glitch-bottom:after {
       animation: glitch-bottom 50ms infinite step-start;
@@ -51,19 +48,35 @@
 
   &.header {
     top: 0 !important;
-    padding: 0;
+    padding: 5px 0 5px 0;
 
-    #logo {
-      width: 198.9px;
-      max-width: 198.9px;
+    &#logo .logo-svg,
+    &#cloned-logo .logo-svg {
+      width: 180px;
     }
+  }
+
+  &.transition {
+    transition: top 250ms ease-in, padding 250ms ease-in;
+
+    .logo-svg {
+      transition: width 500ms ease-out 250ms;
+    }
+  }
+
+  &#logo .logo-svg {
+    width: var(--logo-width);
+  }
+
+  &#cloned-logo .logo-svg {
+    width: 100%;
   }
 }
 
-@media only screen and (max-height: 500px) {
-  #logo-background #logo {
-    width: 198.9px;
-    max-width: 198.9px;
+@media only screen and (max-height: 450px) {
+  .logo#logo .logo-svg,
+  .logo#cloned-logo .logo-svg {
+    width: 240px;
   }
 }
 

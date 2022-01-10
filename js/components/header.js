@@ -1,14 +1,18 @@
 import '/css/header.scss'
 
+const ASPECT_RATIO = 3;
+const ROUNDING_INCREMENT = 5;
+
 export default class Header {
     constructor() {
-        this.logo = document.getElementById('logo-background');
+        this.logo = document.getElementById('logo');
         this.clone();
+        this.handleResize();
     }
 
     moveUp() {
         this.setAbsolutePosition();
-        setTimeout(() => this.logo.classList.add('header'), 10);
+        setTimeout(() => this.logo.classList.add('header', 'transition'), 10);
     }
 
     moveDown(callback) {
@@ -18,10 +22,21 @@ export default class Header {
             this.setRelativePosition();
             callback();
         }, {once: true});
+        this.logo.firstElementChild.addEventListener('transitionend', () => {
+            this.logo.classList.remove('transition');
+        }, {once: true});
+    }
+
+    handleResize() {
+        const height = this.clonedLogo.firstElementChild.clientHeight;
+        const roundedHeight = Math.floor(height / ROUNDING_INCREMENT) * ROUNDING_INCREMENT;
+        const width = roundedHeight * ASPECT_RATIO;
+        document.documentElement.style.setProperty('--logo-width', `${width}px`);
     }
 
     clone() {
         this.clonedLogo = this.logo.cloneNode(true);
+        this.clonedLogo.id = 'cloned-logo';
         this.clonedLogo.style.visibility = 'hidden';
         document.body.appendChild(this.clonedLogo);
     }

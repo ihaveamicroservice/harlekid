@@ -37,8 +37,9 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     antialiasingComposer.setSize(window.innerWidth, window.innerHeight);
     updateFxaaPass();
-    controls.handleResize();
     document.body.style.height = `${window.innerHeight}px`;
+    controls.handleResize();
+    header.handleResize();
 });
 
 electricShockRisk.forEach(e => e.addEventListener('pointerdown', onMouseDown));
