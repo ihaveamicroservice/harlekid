@@ -14,9 +14,9 @@ export default class Stars {
 
     #drawObjects() {
         const geometry = new BufferGeometry();
-        const starPositions = Stars.#getStarPositions(1000);
+        const starPositions = Stars.#getStarPositions(500);
         const material = new PointsMaterial({
-            size: 0.07,
+            size: 0.1,
             vertexColors: this.rainbow
         });
         geometry.setAttribute('position', new BufferAttribute(starPositions, 3));

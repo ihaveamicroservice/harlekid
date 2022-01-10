@@ -1,23 +1,30 @@
-.logo {
+#logo {
+  top: var(--logo-top);
+  padding: var(--logo-padding) 0 var(--logo-padding) 0;
   position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
   z-index: 1;
   align-self: center;
-  padding: 10px 0 10px 0;
   background-color: rgba(0, 0, 0, 0.3);
 
-  .logo-svg {
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  #logo-svg {
+    width: var(--logo-width);
     position: relative;
-    max-width: 1000px;
     overflow: hidden;
 
     &:before, &:after {
       content: '';
       position: absolute;
       width: 100%;
-      max-width: 1000px;
       background: url('../img/logos/harlekid.svg') no-repeat;
       background-size: cover;
     }
@@ -47,11 +54,10 @@
   }
 
   &.header {
-    top: 0 !important;
+    top: 0;
     padding: 5px 0 5px 0;
 
-    &#logo .logo-svg,
-    &#cloned-logo .logo-svg {
+    #logo-svg {
       width: 180px;
     }
   }
@@ -59,23 +65,14 @@
   &.transition {
     transition: top 250ms ease-in, padding 250ms ease-in;
 
-    .logo-svg {
+    #logo-svg {
       transition: width 500ms ease-out 250ms;
     }
-  }
-
-  &#logo .logo-svg {
-    width: var(--logo-width);
-  }
-
-  &#cloned-logo .logo-svg {
-    width: 100%;
   }
 }
 
 @media only screen and (max-height: 450px) {
-  .logo#logo .logo-svg,
-  .logo#cloned-logo .logo-svg {
+  #logo::before {
     width: 240px;
   }
 }

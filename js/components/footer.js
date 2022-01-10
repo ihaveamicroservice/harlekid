@@ -6,7 +6,7 @@ export default class Footer {
         this.footer = document.getElementById('footer');
         this.itemHeight = 50;
         this.skewDegree = 23;
-        this.#initializeFooter();
+        this.#initialize();
     }
 
     hide() {
@@ -23,7 +23,7 @@ export default class Footer {
         }, {once: true});
     }
 
-    #initializeFooter() {
+    #initialize() {
         this.rowCount = platformGroups.reduce((maxLength, element) => element.length > maxLength ? element.length : maxLength, 0);
         this.hiddenAreaHeight = (this.rowCount - 1) * this.itemHeight;
         this.footerHeight = (this.rowCount + 1) * this.itemHeight;

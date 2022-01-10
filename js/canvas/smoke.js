@@ -10,7 +10,7 @@ export default class Smoke {
         this.flashingFlashes = [];
         this.topClass = 'glitch-top';
         this.bottomClass = 'glitch-bottom';
-        this.logoSvg = document.getElementById('logo').firstElementChild;
+        this.logoSvg = document.getElementById('logo-svg');
         this.#drawObjects();
         this.#drawLights();
     }
