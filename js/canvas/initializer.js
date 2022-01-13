@@ -23,9 +23,9 @@ export function initializeThreeJsObjects() {
 
     const renderer = new WebGLRenderer({
         canvas: canvas,
-        powerPreference: 'high-performance'
+        powerPreference: 'high-performance',
+        alpha: true
     });
-    renderer.setClearColor(0x11111f, 1);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const controls = new TrackballControls(camera, renderer.domElement);

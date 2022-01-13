@@ -48,7 +48,7 @@ export default class Universe {
         const material = new MeshLambertMaterial({
             map: texture,
             transparent: true,
-            color: 0xc1cee2
+            color: 0x9bafd0
         });
         this.smoke = new Smoke(this.camera, material);
         this.portal = new Portal(this.camera, material);
