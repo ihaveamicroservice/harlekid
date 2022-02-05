@@ -4,7 +4,6 @@ import Randomizer from './randomizer';
 export default class Stars {
     constructor(scene) {
         this.scene = scene;
-        this.rainbow = window.location.hostname.endsWith('gay');
         this.#drawObjects();
     }
 
@@ -13,18 +12,15 @@ export default class Stars {
     }
 
     #drawObjects() {
-        const geometry = new BufferGeometry();
-        const starPositions = Stars.#getStarPositions(500);
         const material = new PointsMaterial({
             size: 0.1,
-            vertexColors: this.rainbow
+            vertexColors: true
         });
+        const geometry = new BufferGeometry();
+        const starPositions = Stars.#getStarPositions(500);
+        const starColors = Stars.#getStarColors(starPositions);
         geometry.setAttribute('position', new BufferAttribute(starPositions, 3));
-        if (this.rainbow) {
-            geometry.setAttribute('color', new Float32BufferAttribute(Stars.#getStarColors(starPositions), 3));
-        } else {
-            material.color.setHex(0xaaaaaa);
-        }
+        geometry.setAttribute('color', new Float32BufferAttribute(starColors, 3));
         this.particlesMesh = new Points(geometry, material);
         this.scene.add(this.particlesMesh);
     }
