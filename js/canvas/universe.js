@@ -4,12 +4,13 @@ import Portal from './portal';
 import Cube from './cube';
 import Stars from './stars';
 
+const CLICK_DEVIATION = 10;
+
 export default class Universe {
     constructor(scene, camera, controls) {
         this.scene = scene;
         this.camera = camera;
         this.controls = controls;
-        this.mouseDown = new Vector2();
         this.mouse = new Vector2();
         this.center = new Vector2(0, 0);
         this.#drawObjects();
@@ -21,15 +22,14 @@ export default class Universe {
     }
 
     onMouseDown(event) {
-        this.#updateVector(event);
-        this.mouseDown = this.mouse.clone()
+        this.mouseDownEvent = event;
     }
 
     onMouseUp(event) {
-        this.#updateVector(event);
-        if (!this.mouseDown.equals(this.mouse)) {
+        if (this.#isMoveEvent(event)) {
             return;
         }
+        this.#updateVector(event);
         const index = this.cube.onMouseUp(this.mouse);
         index === undefined && this.smoke.onMouseUp(this.mouse);
         return index;
@@ -64,5 +64,10 @@ export default class Universe {
     #updateVector(event) {
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    #isMoveEvent(event) {
+        return Math.abs(this.mouseDownEvent.clientX - event.clientX) > CLICK_DEVIATION
+            || Math.abs(this.mouseDownEvent.clientY - event.clientY) > CLICK_DEVIATION;
     }
 }
