@@ -15,8 +15,8 @@ export default class Player {
         this.playButton = document.getElementById('play-button');
         this.playIcon = document.getElementById('play-icon');
         this.playingClass = 'playing';
-        this.audioEventListeners = this.#getAudioEventListeners();
-        this.#addClickEventListeners();
+        this.audioEventListeners = this.getAudioEventListeners();
+        this.addClickEventListeners();
     }
 
     hide() {
@@ -37,11 +37,11 @@ export default class Player {
 
     selectSong(index) {
         const song = songs.get(index);
-        this.#showSong(song);
-        this.#playSong(song);
+        this.showSong(song);
+        this.playSong(song);
     }
 
-    #showSong(song) {
+    showSong(song) {
         this.player.classList.remove('hidden-controls');
         this.cover.src = song.cover;
         this.title.textContent = song.title;
@@ -57,23 +57,23 @@ export default class Player {
         }
     }
 
-    #playSong(song) {
-        this.audio && this.#removeEventListeners();
+    playSong(song) {
+        this.audio && this.removeEventListeners();
         this.pause();
         this.audio = new Audio(song.song.toString());
         this.audio.play();
-        this.#addEventListeners();
+        this.addEventListeners();
     }
 
-    #removeEventListeners() {
+    removeEventListeners() {
         this.audioEventListeners.forEach((listener, type) => this.audio.removeEventListener(type, listener));
     }
 
-    #addEventListeners() {
+    addEventListeners() {
         this.audioEventListeners.forEach((listener, type) => this.audio.addEventListener(type, listener));
     }
 
-    #addClickEventListeners() {
+    addClickEventListeners() {
         this.playButton.addEventListener('click', event => {
             this.play();
             createRipple(event);
@@ -81,7 +81,7 @@ export default class Player {
         this.spotifyButton.addEventListener('click', () => this.pause());
     }
 
-    #getAudioEventListeners() {
+    getAudioEventListeners() {
         const onPlay = () => this.playIcon.classList.add(this.playingClass);
         const onPause = () => this.playIcon.classList.remove(this.playingClass);
         const updateProgress = event => this.progressBar.style.width = `${event.target.currentTime / event.target.duration * window.innerWidth}px`;

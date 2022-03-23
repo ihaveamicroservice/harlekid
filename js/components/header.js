@@ -7,7 +7,7 @@ export default class Header {
     constructor() {
         this.logo = document.getElementById('logo');
         this.padding = 10;
-        this.#initialize();
+        this.initialize();
     }
 
     moveUp() {
@@ -30,7 +30,7 @@ export default class Header {
         document.documentElement.style.setProperty('--logo-top', `${top}px`);
     }
 
-    #initialize() {
+    initialize() {
         document.documentElement.style.setProperty('--logo-padding', `${this.padding}px`)
         this.handleResize();
     }

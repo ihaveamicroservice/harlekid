@@ -11,13 +11,13 @@ export default class Smoke {
         this.topClass = 'glitch-top';
         this.bottomClass = 'glitch-bottom';
         this.logoSvg = document.getElementById('logo-svg');
-        this.#drawObjects();
-        this.#drawLights();
+        this.drawObjects();
+        this.drawLights();
     }
 
     animate() {
-        this.#rotate(-0.002);
-        this.#flash(10000);
+        this.rotate(-0.002);
+        this.flash(10000);
     }
 
     onMouseUp(mouse) {
@@ -42,10 +42,10 @@ export default class Smoke {
             }
         }
         this.flashingFlashes.unshift(flash);
-        setTimeout(() => this.#stopFlashing(flash), 500);
+        setTimeout(() => this.stopFlashing(flash), 500);
     }
 
-    #drawObjects() {
+    drawObjects() {
         const geometry = new PlaneBufferGeometry(10, 10);
         for (let i = 0; i < 8; i++) {
             const particle = new Mesh(geometry, this.material);
@@ -59,22 +59,22 @@ export default class Smoke {
         }
     }
 
-    #drawLights() {
+    drawLights() {
         for (let i = 0; i < 3; i++) {
             this.flashes.push(new PointLight(0x062d89, 0, 10, 5));
         }
         this.flashes.forEach(f => this.camera.add(f));
     }
 
-    #rotate(speed) {
+    rotate(speed) {
         this.smokeParticles.forEach(p => p.rotation.z += speed);
     }
 
-    #flash(power) {
+    flash(power) {
         this.flashingFlashes.forEach(f => f.power = f.power === 0 ? power : 0);
     }
 
-    #stopFlashing(flash) {
+    stopFlashing(flash) {
         flash.power = 0;
         this.flashes.unshift(this.flashingFlashes.pop());
         if (!this.flashingFlashes.some(f => f.position.y > 0)) {

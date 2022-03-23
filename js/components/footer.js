@@ -6,7 +6,7 @@ export default class Footer {
         this.footer = document.getElementById('footer');
         this.itemHeight = 50;
         this.skewDegree = 23;
-        this.#initialize();
+        this.initialize();
     }
 
     hide() {
@@ -23,7 +23,7 @@ export default class Footer {
         }, {once: true});
     }
 
-    #initialize() {
+    initialize() {
         this.rowCount = platformGroups.reduce((maxLength, element) => element.length > maxLength ? element.length : maxLength, 0);
         this.hiddenAreaHeight = (this.rowCount - 1) * this.itemHeight;
         this.footerHeight = (this.rowCount + 1) * this.itemHeight;
@@ -34,51 +34,51 @@ export default class Footer {
         document.documentElement.style.setProperty('--footer-height', `${this.footerHeight}px`);
 
         this.footer.replaceChildren();
-        platformGroups.map(platforms => this.#getPlatformGroup(platforms)).forEach(node => this.footer.append(node));
-        this.footer.append(this.#getMusicGroup());
+        platformGroups.map(platforms => this.getPlatformGroup(platforms)).forEach(node => this.footer.append(node));
+        this.footer.append(this.getMusicGroup());
     }
 
-    #getMusicGroup() {
-        let platformGroup = this.#getGroup();
-        this.musicButton = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
+    getMusicGroup() {
+        let platformGroup = this.getGroup();
+        this.musicButton = Footer.createElementWithClasses('a', ['footer-item', 'button']);
         this.musicButton.id = 'music-button';
         this.musicButton.title = 'Let\'s go!';
 
-        let content = Footer.#createElementWithClasses('div', ['footer-item-content']);
+        let content = Footer.createElementWithClasses('div', ['footer-item-content']);
         content.textContent = 'music';
         this.musicButton.append(content);
 
         for (let i = 0; i <= this.rowCount; i++) {
-            platformGroup.append(i === 1 ? this.musicButton : Footer.#getEmptyItem());
+            platformGroup.append(i === 1 ? this.musicButton : Footer.getEmptyItem());
         }
         return platformGroup;
     }
 
-    #getPlatformGroup(platforms) {
-        let platformGroup = this.#getGroup();
+    getPlatformGroup(platforms) {
+        let platformGroup = this.getGroup();
         for (let i = 0; i < this.rowCount; i++) {
-            platformGroup.append(platforms[i] ? Footer.#getItem(platforms[i]) : Footer.#getEmptyItem());
+            platformGroup.append(platforms[i] ? Footer.getItem(platforms[i]) : Footer.getEmptyItem());
         }
 
         if (platforms.length > 1) {
-            let arrow = Footer.#getArrow();
+            let arrow = Footer.getArrow();
             platformGroup.prepend(arrow);
-            arrow.addEventListener('click', () => this.#onArrowClick(platformGroup, platforms.length + 1));
+            arrow.addEventListener('click', () => this.onArrowClick(platformGroup, platforms.length + 1));
         } else {
-            platformGroup.prepend(Footer.#getEmptyItem());
+            platformGroup.prepend(Footer.getEmptyItem());
         }
 
         return platformGroup;
     }
 
-    #getGroup() {
-        let platformGroup = Footer.#createElementWithClasses('div', ['footer-button-group']);
+    getGroup() {
+        let platformGroup = Footer.createElementWithClasses('div', ['footer-button-group']);
         platformGroup.style.transform = `skew(-${this.skewDegree}deg) translateY(${this.hiddenAreaHeight}px)`;
         return platformGroup;
     }
 
-    static #getItem(platform) {
-        let item = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
+    static getItem(platform) {
+        let item = Footer.createElementWithClasses('a', ['footer-item', 'button']);
         item.style.background = platform.background;
         item.title = platform.name;
         if (platform.href) {
@@ -86,7 +86,7 @@ export default class Footer {
             item.target = '_blank';
         }
 
-        let svg = Footer.#createElementWithClasses('img', ['footer-item-content']);
+        let svg = Footer.createElementWithClasses('img', ['footer-item-content']);
         svg.style.width = `${platform.width}px`;
         svg.src = platform.src;
         svg.alt = platform.name;
@@ -95,26 +95,26 @@ export default class Footer {
         return item;
     }
 
-    static #getEmptyItem() {
-        return Footer.#createElementWithClasses('a', ['footer-item'])
+    static getEmptyItem() {
+        return Footer.createElementWithClasses('a', ['footer-item'])
     }
 
-    static #getArrow() {
-        let arrow = Footer.#createElementWithClasses('a', ['footer-item', 'button']);
-        let svg = Footer.#createElementWithClasses('img', ['arrow']);
+    static getArrow() {
+        let arrow = Footer.createElementWithClasses('a', ['footer-item', 'button']);
+        let svg = Footer.createElementWithClasses('img', ['arrow']);
         svg.src = new URL('/img/icons/arrow.svg', import.meta.url).toString();
         svg.alt = 'Arrow';
         arrow.append(svg);
         return arrow;
     }
 
-    static #createElementWithClasses(tagName, classes) {
+    static createElementWithClasses(tagName, classes) {
         let element = document.createElement(tagName);
         element.classList.add(...classes);
         return element;
     }
 
-    #onArrowClick(platformGroup, platformCount) {
+    onArrowClick(platformGroup, platformCount) {
         if (platformGroup.classList.contains('extended')) {
             platformGroup.classList.remove('extended');
             platformGroup.style.transform = `skew(-${this.skewDegree}deg) translateY(${this.hiddenAreaHeight}px)`;

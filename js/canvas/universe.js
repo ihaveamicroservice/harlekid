@@ -13,8 +13,8 @@ export default class Universe {
         this.controls = controls;
         this.mouse = new Vector2();
         this.center = new Vector2(0, 0);
-        this.#drawObjects();
-        this.#drawLights();
+        this.drawObjects();
+        this.drawLights();
     }
 
     animate() {
@@ -26,10 +26,10 @@ export default class Universe {
     }
 
     onMouseUp(event) {
-        if (this.#isMoveEvent(event)) {
+        if (this.isMoveEvent(event)) {
             return;
         }
-        this.#updateVector(event);
+        this.updateVector(event);
         const index = this.cube.onMouseUp(this.mouse);
         index === undefined && this.smoke.onMouseUp(this.mouse);
         return index;
@@ -43,7 +43,7 @@ export default class Universe {
         this.cube.hide(() => this.portal.hide(callback, () => this.smoke.onMouseUp(this.center)));
     }
 
-    #drawObjects() {
+    drawObjects() {
         const texture = new TextureLoader().load(new URL('/img/canvas/smoke.png', import.meta.url));
         const material = new MeshLambertMaterial({
             map: texture,
@@ -57,16 +57,16 @@ export default class Universe {
         this.objects = [this.smoke, this.portal, this.cube, this.stars];
     }
 
-    #drawLights() {
+    drawLights() {
         this.camera.add(new DirectionalLight(0xffffff, 0.7));
     }
 
-    #updateVector(event) {
+    updateVector(event) {
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
 
-    #isMoveEvent(event) {
+    isMoveEvent(event) {
         return Math.abs(this.mouseDownEvent.clientX - event.clientX) > CLICK_DEVIATION
             || Math.abs(this.mouseDownEvent.clientY - event.clientY) > CLICK_DEVIATION;
     }

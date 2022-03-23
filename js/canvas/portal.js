@@ -11,8 +11,8 @@ export default class Portal {
         this.invisiblePortalParticles = [];
         this.lifecycleStage = lifecycle.hidden;
         this.animations = assignAnimationsToLifecycles.apply(this);
-        this.#drawObjects();
-        this.#drawLights();
+        this.drawObjects();
+        this.drawLights();
     }
 
     animate() {
@@ -30,7 +30,7 @@ export default class Portal {
             this.portalFlash.color.setHex(this.flashColor);
         }
         this.portalParticles.forEach(p => p.rotation.z += 0.005);
-        this.#rotate(0.005);
+        this.rotate(0.005);
     }
 
     animateEntering() {
@@ -47,7 +47,7 @@ export default class Portal {
         if (!this.invisiblePortalParticles.length) {
             this.lifecycleStage = lifecycle.present;
         }
-        this.#rotate(0.02);
+        this.rotate(0.02);
     }
 
     animateLeaving() {
@@ -65,7 +65,7 @@ export default class Portal {
             this.lifecycleStage = lifecycle.hidden;
             this.finalFlashAnimationCallback();
         }
-        this.#rotate(-0.02);
+        this.rotate(-0.02);
     }
 
     show(callback) {
@@ -79,7 +79,7 @@ export default class Portal {
         this.finalFlashAnimationCallback = finalFlashAnimationCallback;
     }
 
-    #drawObjects() {
+    drawObjects() {
         const geometry = new PlaneBufferGeometry(1, 1);
         for (let p = 200; p > 60; p--) {
             const particle = new Mesh(geometry, this.material);
@@ -93,13 +93,13 @@ export default class Portal {
         }
     }
 
-    #drawLights() {
+    drawLights() {
         this.portalFlash = new PointLight(this.flashColor, 0, 7, 5);
         this.portalFlash.position.z = -2.8;
         this.camera.add(this.portalFlash);
     }
 
-    #rotate(speed) {
+    rotate(speed) {
         this.portalParticles.forEach(p => p.rotation.z += speed);
     }
 }
