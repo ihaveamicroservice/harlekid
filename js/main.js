@@ -4,7 +4,7 @@ import {initializeThreeJsObjects} from './canvas/initializer';
 import {lifecycle} from './canvas/lifecycle';
 import Footer from './components/footer';
 import Universe from './canvas/universe';
-import createRipple from './effects/ripple';
+import ripple from './effects/ripple';
 import '/css/styles.scss';
 import '/css/stats.scss';
 
@@ -59,7 +59,7 @@ function onMusicButtonClick(event) {
     universe.showPortal(() => player.show());
     header.moveUp();
     footer.hide();
-    createRipple(event);
+    ripple(event);
 }
 
 function onMouseDown(event) {

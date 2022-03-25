@@ -1,5 +1,5 @@
 import songs from './config/songs';
-import createRipple from '../effects/ripple';
+import ripple from '../effects/ripple';
 import '/css/player.scss';
 import '/css/play-button.scss';
 
@@ -76,7 +76,7 @@ export default class Player {
     addClickEventListeners() {
         this.playButton.addEventListener('click', event => {
             this.play();
-            createRipple(event);
+            ripple(event);
         });
         this.spotifyButton.addEventListener('click', () => this.pause());
     }

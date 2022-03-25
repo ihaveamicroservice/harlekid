@@ -1,4 +1,4 @@
-export default function createRipple(event) {
+export default function ripple(event) {
     const button = event.currentTarget;
     const circle = document.createElement('span');
     const diameter = Math.max(button.clientWidth, button.clientHeight);
