@@ -16,8 +16,10 @@ export default class Header {
 
     moveDown(callback) {
         this.logo.classList.remove('header');
-        this.logo.addEventListener('transitionend', callback, {once: true});
-        this.logo.firstElementChild.addEventListener('transitionend', () => this.logo.classList.remove('transition'), {once: true});
+        this.logo.firstElementChild.addEventListener('transitionend', () => {
+            this.logo.classList.remove('transition');
+            callback();
+        }, {once: true});
     }
 
     handleResize() {

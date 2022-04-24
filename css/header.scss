@@ -8,6 +8,7 @@
   z-index: 1;
   align-self: center;
   background-color: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 
   &:before {
     content: '';
@@ -19,6 +20,7 @@
   #logo-svg {
     width: var(--logo-width);
     position: relative;
+    pointer-events: none;
     overflow: hidden;
 
     &:before, &:after {

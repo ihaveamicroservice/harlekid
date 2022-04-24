@@ -13,8 +13,9 @@ const universe = new Universe(scene, camera, controls);
 const header = new Header();
 const footer = new Footer();
 const player = new Player();
-const electricShockRisk = [canvas, header.logo];
+const portalOpeners = [header.logo, footer.musicButton];
 
+addOpenPortalEventListeners();
 updateFxaaPass();
 animate();
 
@@ -42,24 +43,20 @@ window.addEventListener('resize', () => {
     header.handleResize();
 });
 
-electricShockRisk.forEach(e => e.addEventListener('pointerdown', onMouseDown));
-electricShockRisk.forEach(e => e.addEventListener('pointerup', onMouseUp));
+canvas.addEventListener('pointerdown', onMouseDown);
+canvas.addEventListener('pointerup', onMouseUp);
 player.closeButton.addEventListener('click', onClose);
 
 document.getElementById('stats-button').addEventListener('click', () => {
     document.getElementById('stats-container').classList.toggle('hidden');
 });
 
-addMusicButtonEventListener();
-function addMusicButtonEventListener() {
-    footer.musicButton.addEventListener('click', onMusicButtonClick, {once: true});
+function addOpenPortalEventListeners() {
+    portalOpeners.forEach(element => element.addEventListener('click', onOpen));
 }
 
-function onMusicButtonClick(event) {
-    universe.showPortal(() => player.show());
-    header.moveUp();
-    footer.hide();
-    ripple(event);
+function removeOpenPortalEventListeners() {
+    portalOpeners.forEach(element => element.removeEventListener('click', onOpen));
 }
 
 function onMouseDown(event) {
@@ -75,13 +72,26 @@ function onMouseUp(event) {
     player.selectSong(faceIndex);
 }
 
-function onClose() {
+function onOpen(event) {
+    removeOpenPortalEventListeners();
+    universe.showPortal(() => {
+        header.logo.addEventListener('click', onClose);
+        player.show();
+    });
+    header.moveUp();
+    footer.hide();
+    ripple(event);
+}
+
+function onClose(event) {
+    header.logo.removeEventListener('click', onClose);
     player.hide();
     player.pause();
     universe.hidePortal(() => {
-        header.moveDown(() => addMusicButtonEventListener());
+        header.moveDown(() => addOpenPortalEventListeners());
         footer.show();
     });
+    ripple(event);
 }
 
 function updateFxaaPass() {

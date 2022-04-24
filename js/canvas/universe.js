@@ -67,7 +67,8 @@ export default class Universe {
     }
 
     isMoveEvent(event) {
-        return Math.abs(this.mouseDownEvent.clientX - event.clientX) > CLICK_DEVIATION
+        return !this.mouseDownEvent
+            || Math.abs(this.mouseDownEvent.clientX - event.clientX) > CLICK_DEVIATION
             || Math.abs(this.mouseDownEvent.clientY - event.clientY) > CLICK_DEVIATION;
     }
 }
