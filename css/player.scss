@@ -6,6 +6,7 @@
   z-index: 1;
   overflow: hidden;
   display: none;
+  user-select: none;
   background-color: rgba(0, 0, 0, 0.3);
 
   #cover-wrapper {
@@ -93,7 +94,6 @@
       margin-left: 18px;
       overflow: hidden;
       text-overflow: ellipsis;
-      user-select: none;
     }
   }
 
