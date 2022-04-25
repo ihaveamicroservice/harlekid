@@ -1,5 +1,5 @@
 import {Mesh, PlaneBufferGeometry, PointLight} from 'three';
-import {lifecycle, assignAnimationsToLifecycles} from './lifecycle.js';
+import {lifecycle, assignAnimationsToLifecycles} from './lifecycle';
 
 export default class Portal {
     constructor(camera, material) {
@@ -13,28 +13,6 @@ export default class Portal {
         this.animations = assignAnimationsToLifecycles.apply(this);
         this.drawObjects();
         this.drawLights();
-    }
-
-    drawObjects() {
-        const geometry = new PlaneBufferGeometry(1, 1);
-        for (let p = 200; p > 60; p--) {
-            const particle = new Mesh(geometry, this.material);
-            particle.position.set(
-                0.006 * p * Math.cos((16 * p * Math.PI) / 180),
-                0.006 * p * Math.sin((16 * p * Math.PI) / 180),
-                0.01 * p - 5
-            );
-            particle.rotation.z = Math.random() * 360;
-            particle.visible = false;
-            this.camera.add(particle);
-            this.invisiblePortalParticles.push(particle);
-        }
-    }
-
-    drawLights() {
-        this.portalFlash = new PointLight(this.flashColor, 0, 10, 5);
-        this.portalFlash.position.z = -3;
-        this.camera.add(this.portalFlash);
     }
 
     animate() {
@@ -99,6 +77,26 @@ export default class Portal {
         this.lifecycleStage = lifecycle.leaving;
         this.startLogoAnimationCallback = startLogoAnimationCallback;
         this.finalFlashAnimationCallback = finalFlashAnimationCallback;
+    }
+
+    drawObjects() {
+        const geometry = new PlaneBufferGeometry(1, 1);
+        for (let p = 200; p > 60; p--) {
+            const particle = new Mesh(geometry, this.material);
+            particle.position.x = 0.006 * p * Math.cos((16 * p * Math.PI) / 180);
+            particle.position.y = 0.006 * p * Math.sin((16 * p * Math.PI) / 180);
+            particle.position.z = 0.01 * p - 5;
+            particle.rotation.z = Math.random() * 360;
+            particle.visible = false;
+            this.camera.add(particle);
+            this.invisiblePortalParticles.push(particle);
+        }
+    }
+
+    drawLights() {
+        this.portalFlash = new PointLight(this.flashColor, 0, 7, 5);
+        this.portalFlash.position.z = -2.8;
+        this.camera.add(this.portalFlash);
     }
 
     rotate(speed) {

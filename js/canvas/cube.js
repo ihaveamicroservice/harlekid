@@ -1,6 +1,14 @@
-import {BoxGeometry, Mesh, MeshLambertMaterial, PointLight, Raycaster, TextureLoader, Vector2} from 'three';
-import songs from '../songs.js';
-import {lifecycle, assignAnimationsToLifecycles} from './lifecycle.js';
+import {
+    BoxBufferGeometry,
+    Mesh,
+    MeshLambertMaterial,
+    PointLight,
+    Raycaster,
+    TextureLoader,
+    Vector2
+} from 'three';
+import songs from '../components/config/songs';
+import {lifecycle, assignAnimationsToLifecycles} from './lifecycle';
 
 export default class Cube {
     constructor(scene, camera, controls, portal) {
@@ -16,24 +24,6 @@ export default class Cube {
         this.animations = assignAnimationsToLifecycles.apply(this);
         this.drawObjects();
         this.drawLights();
-    }
-
-    drawObjects() {
-        const size = 1.25;
-        const geometry = new BoxGeometry(size, size, size);
-        const materials = [...Array(6).keys()].map(x =>
-            new MeshLambertMaterial({
-                map: new TextureLoader().load(songs.get(x).cover)
-            })
-        );
-        this.cube = new Mesh(geometry, materials);
-        this.cube.scale.set(this.scale, this.scale, this.scale);
-        this.scene.add(this.cube);
-    }
-
-    drawLights() {
-        this.cubeLight = new PointLight(0xffffff, 1, 10);
-        this.camera.add(this.cubeLight);
     }
 
     animate() {
@@ -60,7 +50,7 @@ export default class Cube {
             this.portal.flash = true;
             this.showCallback();
         }
-        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.cube.scale.setScalar(this.scale);
         this.rotate(0.15);
     }
 
@@ -89,7 +79,7 @@ export default class Cube {
             }
             this.rotate(-0.15);
         }
-        this.cube.scale.set(this.scale, this.scale, this.scale);
+        this.cube.scale.setScalar(this.scale);
     }
 
     onMouseUp(mouse) {
@@ -108,6 +98,24 @@ export default class Cube {
     hide(callback) {
         this.lifecycleStage = lifecycle.leaving;
         this.hideCallback = callback;
+    }
+
+    drawObjects() {
+        const size = 1.4;
+        const geometry = new BoxBufferGeometry(size, size, size);
+        const materials = [...Array(6).keys()].map(x =>
+            new MeshLambertMaterial({
+                map: new TextureLoader().load(songs.get(x).cover)
+            })
+        );
+        this.cube = new Mesh(geometry, materials);
+        this.cube.scale.setScalar(this.scale);
+        this.scene.add(this.cube);
+    }
+
+    drawLights() {
+        this.cubeLight = new PointLight(0xffffff, 1, 10);
+        this.camera.add(this.cubeLight);
     }
 
     rotate(speed) {

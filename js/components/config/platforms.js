@@ -1,6 +1,6 @@
 const youtube = {
     name: 'Youtube',
-    href: undefined,
+    href: new URL('https://youtu.be/7APMmeQOYKc', import.meta.url),
     width: 70,
     src: new URL('/img/logos/youtube.svg', import.meta.url),
     background: '#f00'
@@ -8,7 +8,7 @@ const youtube = {
 
 const instagram = {
     name: 'Instagram',
-    href: 'https://www.instagram.com/harle.kid/',
+    href: new URL('https://www.instagram.com/harle.kid/', import.meta.url),
     width: 24,
     src: new URL('/img/logos/instagram.svg', import.meta.url),
     background: `radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%),
@@ -23,7 +23,7 @@ const instagram = {
 
 const linkedin = {
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/kevinduss/',
+    href: new URL('https://www.linkedin.com/in/kevinduss/', import.meta.url),
     width: 24,
     src: new URL('/img/logos/linkedin.svg', import.meta.url),
     background: '#0a66c2'
@@ -31,15 +31,15 @@ const linkedin = {
 
 const spotify = {
     name: 'Spotify',
-    href: undefined,
+    href: new URL('https://open.spotify.com/artist/3ZnB9imzGnl5mdREkfSgd3?si=misxYs2fQq6rPZoEk_dtIg', import.meta.url),
     width: 26,
     src: new URL('/img/logos/spotify.svg', import.meta.url),
     background: '#1db954'
 };
 
 const apple = {
-    name: 'Apple',
-    href: undefined,
+    name: 'Apple Music',
+    href: new URL('https://music.apple.com/us/artist/harlekid/1599730024', import.meta.url),
     width: 35,
     src: new URL('/img/logos/apple.svg', import.meta.url),
     background: 'linear-gradient(#f9647b, #fa233b)'
@@ -55,6 +55,6 @@ const soundcloud = {
 
 const videoPlatforms = [youtube];
 const socialMediaPlatforms = [instagram, linkedin];
-const musicPlatforms = [spotify, apple, soundcloud];
+const musicPlatforms = [spotify, apple];
 
 export default [videoPlatforms, socialMediaPlatforms, musicPlatforms];

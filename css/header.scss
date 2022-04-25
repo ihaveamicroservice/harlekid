@@ -1,0 +1,98 @@
+#logo {
+  top: var(--logo-top);
+  padding: var(--logo-padding) 0 var(--logo-padding) 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 1;
+  align-self: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  #logo-svg {
+    width: var(--logo-width);
+    position: relative;
+    pointer-events: none;
+    overflow: hidden;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      background: url('../img/logos/harlekid.svg') no-repeat;
+      background-size: cover;
+    }
+
+    &:before {
+      height: 40%;
+    }
+
+    &:after {
+      height: 60%;
+      background-position: 0 100%;
+      top: 40%;
+    }
+
+    img {
+      display: block;
+      visibility: hidden;
+    }
+
+    &.glitch-top:before {
+      animation: glitch-top 50ms infinite step-start;
+    }
+
+    &.glitch-bottom:after {
+      animation: glitch-bottom 50ms infinite step-start;
+    }
+  }
+
+  &.header {
+    top: 0;
+    padding: 5px 0 5px 0;
+
+    #logo-svg {
+      width: 180px;
+    }
+  }
+
+  &.transition {
+    transition: top 250ms ease-in, padding 250ms ease-in;
+
+    #logo-svg {
+      transition: width 500ms ease-out 250ms;
+    }
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  #logo::before {
+    width: 240px;
+  }
+}
+
+@keyframes glitch-top {
+  0%, 100% {
+    left: 0;
+  }
+  50% {
+    left: -1%;
+  }
+}
+
+@keyframes glitch-bottom {
+  0%, 100% {
+    left: 0;
+  }
+  50% {
+    left: 1%;
+  }
+}
