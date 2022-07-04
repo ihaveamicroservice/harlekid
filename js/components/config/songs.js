@@ -16,6 +16,15 @@ const jekami = {
     colorHex: '#e0e100'
 };
 
+const tanzt = {
+    title: 'tanzt',
+    cover: new URL('/img/covers/tanzt.jpg', import.meta.url),
+    song: new URL('/mp3/tanzt.mp3', import.meta.url),
+    href: new URL('https://open.spotify.com/track/2KhjkdNTX9P9zyksfCcbNn?si=fd02b899618b4c38', import.meta.url),
+    color: 0xffffff,
+    colorHex: '#ffffff'
+};
+
 const freieEnergie = {
     title: 'freie energie',
     cover: new URL('/img/covers/freie_energie.jpg', import.meta.url),
@@ -29,7 +38,7 @@ export default new Map([
     [0, propagandalf],
     [1, propagandalf],
     [2, jekami],
-    [3, jekami],
-    [4, freieEnergie],
-    [5, freieEnergie]
+    [3, freieEnergie],
+    [4, tanzt],
+    [5, tanzt]
 ]);
