@@ -8,8 +8,8 @@
   },
   "author": "Kevin Duss",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.1",
-    "parcel": "^2.0.1"
+    "@parcel/transformer-sass": "^2.9.3",
+    "parcel": "^2.9.3"
   },
   "dependencies": {
     "three": "^0.134.0"
