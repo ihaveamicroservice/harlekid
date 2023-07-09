@@ -16,7 +16,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"PKief.material-icon-theme"
+				"PKief.material-icon-theme",
+				"eamodio.gitlens"
 			]
 		}
 	}
