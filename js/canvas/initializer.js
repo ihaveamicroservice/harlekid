@@ -1,10 +1,6 @@
 import {FogExp2, PerspectiveCamera, Scene, WebGLRenderer} from 'three';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
-import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass';
-import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader';
-import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
 
 export function initializeThreeJsObjects() {
     const statsContainer = document.getElementById('stats-container');
@@ -24,7 +20,8 @@ export function initializeThreeJsObjects() {
     const renderer = new WebGLRenderer({
         canvas: canvas,
         powerPreference: 'high-performance',
-        alpha: true
+        alpha: true,
+        antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -34,11 +31,5 @@ export function initializeThreeJsObjects() {
     controls.noRotate = true;
     controls.rotateSpeed = 4;
 
-    const renderPass = new RenderPass(scene, camera);
-    const fxaaPass = new ShaderPass(FXAAShader);
-    const antialiasingComposer = new EffectComposer(renderer);
-    antialiasingComposer.addPass(renderPass);
-    antialiasingComposer.addPass(fxaaPass);
-
-    return [camera, canvas, antialiasingComposer, controls, fxaaPass, renderer, scene, stats];
+    return [camera, canvas, controls, renderer, scene, stats];
 }

@@ -8,7 +8,7 @@ import ripple from './effects/ripple';
 import '/css/styles.scss';
 import '/css/stats.scss';
 
-const [camera, canvas, antialiasingComposer, controls, fxaaPass, renderer, scene, stats] = initializeThreeJsObjects();
+const [camera, canvas, controls, renderer, scene, stats] = initializeThreeJsObjects();
 const universe = new Universe(scene, camera, controls);
 const header = new Header();
 const footer = new Footer();
@@ -16,7 +16,6 @@ const player = new Player();
 const portalOpeners = [header.logo, footer.musicButton];
 
 addOpenPortalEventListeners();
-updateFxaaPass();
 animate();
 
 function animate() {
@@ -24,11 +23,7 @@ function animate() {
     stats.begin();
     universe.animate();
     controls.update();
-    if (window.innerHeight > 1000) {
-        renderer.render(scene, camera);
-    } else {
-        antialiasingComposer.render();
-    }
+    renderer.render(scene, camera);
     stats.end();
 }
 
@@ -36,8 +31,6 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    antialiasingComposer.setSize(window.innerWidth, window.innerHeight);
-    updateFxaaPass();
     document.body.style.height = `${window.innerHeight}px`;
     controls.handleResize();
     header.handleResize();
@@ -92,10 +85,4 @@ function onClose(event) {
         footer.show();
     });
     ripple(event);
-}
-
-function updateFxaaPass() {
-    const pixelRatio = renderer.getPixelRatio();
-    fxaaPass.material.uniforms['resolution'].value.x = 1 / (window.innerWidth * pixelRatio);
-    fxaaPass.material.uniforms['resolution'].value.y = 1 / (window.innerHeight * pixelRatio);
 }
