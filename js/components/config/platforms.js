@@ -1,6 +1,6 @@
 const youtube = {
     name: 'Youtube',
-    href: new URL('https://youtu.be/7APMmeQOYKc', import.meta.url),
+    href: new URL('https://www.youtube.com/@harlekid', import.meta.url),
     width: 70,
     src: new URL('/img/logos/youtube.svg', import.meta.url),
     background: '#f00'
