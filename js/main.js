@@ -27,6 +27,14 @@ function animate() {
     stats.end();
 }
 
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (!header.logo.classList.contains('header')) {
+            header.logo.click();
+        }
+    }, 2000);
+});
+
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -73,7 +81,9 @@ function onOpen(event) {
     });
     header.moveUp();
     footer.hide();
-    ripple(event);
+    if (event.isTrusted) {
+        ripple(event);
+    }
 }
 
 function onClose(event) {
